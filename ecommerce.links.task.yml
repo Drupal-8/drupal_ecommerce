@@ -1,0 +1,17 @@
+product.settings_tab:
+  route_name: product.settings
+  title: 'Settings'
+  base_route: product.settings
+product.view:
+  route_name: product.view
+  base_route: product.view
+  title: 'View'
+product.page_edit:
+  route_name: product.edit
+  base_route: product.view
+  title: Edit
+product.delete_confirm:
+  route_name: product.delete
+  base_route: product.view
+  title: Delete
+  weight: 10

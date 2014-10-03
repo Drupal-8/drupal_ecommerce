@@ -1,0 +1,33 @@
+<?php
+/**
+ * @file
+ * Contains Drupal\foo_bar\foo_bar.module
+ */
+/**
+ * Implements hook_permission().
+ */
+function ecommerce_permission() {
+  return array(
+    'delete_product' => array(
+      'title' => t('Delete entity content.'),
+    ),
+    'add_product' => array(
+      'title' => t('Add entity content'),
+    ),
+    'view_product' => array(
+      'title' => t('View entity content'),
+    ),
+    'edit_product' => array(
+      'title' => t('Edit entity content'),
+    ),
+    'admin_product' => array(
+      'title' => t('Administer settings'),
+    ),
+  );
+}
+
+
+function ecommerce_update_8101() {
+
+  drupal_install_schema("ecommerce");
+}

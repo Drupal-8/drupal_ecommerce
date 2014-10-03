@@ -1,0 +1,57 @@
+product.view:
+  path: '/product/{product}'
+  defaults:
+    _entity_view: 'product'
+    _title: 'Product Content'
+  requirements:
+    _permission: 'view_product'
+product.list:
+  path: '/product/list'
+  defaults:
+    _entity_list: 'product'
+    _title: 'Product Content List'
+  requirements:
+    _permission: 'view_product'
+product.add:
+  path: '/product/add'
+  defaults:
+    _entity_form: product.add
+    _title: 'Add Product Content'
+  requirements:
+    _permission: 'add_product'
+product.edit:
+  path: '/product/{product}/edit'
+  defaults:
+    _entity_form: product.edit
+    _title: 'Edit Product content'
+  requirements:
+    _permission: 'edit_product'
+product.delete:
+  path: '/product/{product}/delete'
+  defaults:
+    _entity_form: product.delete
+    _title: 'Delete Product Content '
+  requirements:
+    _permission: 'delete_product'
+product.settings:
+  path: 'admin/structure/product_settings'
+  defaults:
+   _form: '\Drupal\ecommerce\Entity\Form\ProductSettingsForm'
+   _title: 'Product Settings'
+  requirements:
+    _permission: 'admin_product'
+product.install:
+  path: '/product/install'
+  defaults:
+   _content: '\Drupal\ecommerce\Controller\EcommerceController::createdb'
+   _title: 'Product Settings'
+  requirements:
+    _permission: 'admin_product'
+
+product.testdao:
+  path: '/product/test'
+  defaults:
+    _content: '\Drupal\ecommerce\Controller\EcommerceController::testDAO'
+    _title: 'TestDAO'
+  requirements:
+    _permission: 'access content'

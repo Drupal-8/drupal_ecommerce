@@ -1,0 +1,5 @@
+product.add:
+  route_name: product.add
+  title: 'Add Product'
+  appears_on:
+    - product.list
