@@ -19,7 +19,7 @@ class ProductListBuilder extends EntityListBuilder {
     $header['id'] = t ('ProductID');
     $header['label'] = t ('Label');
     $header['product_field'] = t ('ProductField');
-
+    $header['add_cart'] = t ('Add cart');
     return $header + parent::buildHeader ();
   }
 
@@ -31,7 +31,7 @@ class ProductListBuilder extends EntityListBuilder {
     $row['id'] = $entity->id ();
     $row['label'] = l ($this->getLabel ($entity), 'product/' . $entity->id ());
     $row['product_field'] = $entity->getProductField ();
-
+    $row['add_cart'] = "Add cart";
     return $row + parent::buildRow ($entity);
   }
 }
