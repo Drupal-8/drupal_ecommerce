@@ -5,7 +5,7 @@
  */
 namespace Drupal\ecommerce\Entity;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Field\FieldDefinition;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\ecommerce\ProductInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -15,13 +15,13 @@ use Drupal\Core\Entity\EntityTypeInterface;
  * @ContentEntityType(
  *   id = "product",
  *   label = @Translation("Product entity"),
- *   controllers = {
+ *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\ecommerce\Entity\Controller\ProductListBuilder",
  *     "form" = {
- *       "add" = "Drupal\ecommerce\Entity\Form\ProductFormController",
- *       "edit" = "Drupal\ecommerce\Entity\Form\ProductFormController",
- *       "delete" = "Drupal\ecommerce\Entity\Form\ProductDeleteForm"
+ *       "add" = "Drupal\ecommerce\Form\ProductForm",
+ *       "edit" = "Drupal\ecommerce\Form\ProductForm",
+ *       "delete" = "Drupal\ecommerce\Form\ProductDeleteForm"
  *     },
  *     "translation" = "Drupal\content_translation\ContentTranslationController"
  *   },
@@ -73,18 +73,18 @@ class Product extends ContentEntityBase implements ProductInterface {
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields['prid'] = FieldDefinition::create('integer')
+    $fields['prid'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
       ->setDescription(t('The ID of the Product entity.'))
       ->setReadOnly(TRUE);
-    $fields['uuid'] = FieldDefinition::create('uuid')
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
       ->setDescription(t('The UUID of the Product entity.'))
       ->setReadOnly(TRUE);
-    $fields['langcode'] = FieldDefinition::create('language')
+    $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
       ->setDescription(t('The language code of the Product entity.'));
-    $fields['name'] = FieldDefinition::create('string')
+    $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Product entity.'))
       ->setTranslatable(TRUE)
@@ -105,16 +105,16 @@ class Product extends ContentEntityBase implements ProductInterface {
       ))
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-    $fields['type'] = FieldDefinition::create('string')
+    $fields['type'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Type'))
       ->setDescription(t('The bundle of the Product entity.'))
       ->setRequired(TRUE);
-    $fields['user_id'] = FieldDefinition::create('entity_reference')
+    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('User ID'))
       ->setDescription(t('The ID of the associated user.'))
       ->setSettings(array('target_type' => 'user'))
       ->setTranslatable(TRUE);
-    $fields['product_field'] = FieldDefinition::create('string')
+    $fields['product_field'] = BaseFieldDefinition::create('string')
       ->setLabel(t('First Product Field'))
       ->setDescription(t('One field of the Product entity.'))
       ->setTranslatable(TRUE)

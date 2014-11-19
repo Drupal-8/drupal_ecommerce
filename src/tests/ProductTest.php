@@ -1,9 +1,26 @@
 <?php
 
-use malotor\ecommerce\Product;
+namespace Drupal\ecommerce\Tests;
+
+use Drupal\ecommerce\Ecommerce\Product;
+use Drupal\Tests\UnitTestCase;
 
 
-class ProductTest extends PHPUnit_Framework_TestCase {
+/**
+ * @ingroup Ecommerce
+ * @group Ecommerce
+ */
+class ProductTest extends UnitTestCase {
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Ecommerce Unit Test',
+      'description' => 'Ecommerce Unit Test',
+      'group' => 'Ecommerce',
+    );
+  }
 
   public function setUp() {
     $this->myProduct = new Product();
@@ -35,7 +52,7 @@ class ProductTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @expectedException malotor\ecommerce\ProductPriceException
+   * @expectedException Drupal\ecommerce\ProductPriceException
    */
 
   public function testProductPriceMustBeNumeric() {

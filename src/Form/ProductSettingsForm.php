@@ -3,7 +3,7 @@
  * @file
  * Defines Drupal\ecommerce\Entity\Form\FooBarSettingsForm.
  */
-namespace Drupal\ecommerce\Entity\Form;
+namespace Drupal\ecommerce\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 class ProductSettingsForm extends FormBase {

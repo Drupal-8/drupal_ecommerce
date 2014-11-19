@@ -6,7 +6,7 @@
 /**
  * Implements hook_schema().
  */
-function ecommerce_schema() {
+function __ecommerce_schema() {
   $schema['product'] = array(
     'description' => 'Stores Product items.',
     'fields' => array(

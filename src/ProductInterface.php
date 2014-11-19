@@ -4,12 +4,14 @@
  * Contains \Drupal\ecommerce\ProductInterface.
  */
 namespace Drupal\ecommerce;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\user\EntityOwnerInterface;
+
 /**
- * Provides an interface defining a Foo Bar entity.
+ * Provides an interface defining a Product entity.
  */
-interface ProductInterface extends EntityInterface {
+interface ProductInterface extends  ContentEntityInterface  {
   /**
    * Returns the identifier.
    *
@@ -41,15 +43,5 @@ interface ProductInterface extends EntityInterface {
    *   The content of the field.
    */
   public function getProductField();
-  /**
-   * Defines the base fields of the entity type.
-   *
-   * @param string $entity_type
-   *   Name of the entity type
-   *
-   * @return \Drupal\Core\Field\FieldDefinitionInterface[]
-   *   An array of entity field definitions, keyed by field name.
-   */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type);
+
 }
-?>

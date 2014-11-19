@@ -3,14 +3,16 @@
  * @file
  * Definition of Drupal\foo_bar\Entity\Form\FooBarFormController.
  */
-namespace Drupal\ecommerce\Entity\Form;
+
+namespace Drupal\ecommerce\Form;
+
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Form\FormStateInterface;
 /**
  * Form controller for the foo_bar entity edit forms.
  */
-class ProductFormController extends ContentEntityForm {
+class ProductForm extends ContentEntityForm {
   /**
    * Overrides Drupal\Core\Entity\EntityFormController::form().
    */
@@ -30,7 +32,7 @@ class ProductFormController extends ContentEntityForm {
     $form['langcode'] = array(
       '#title' => t('Language'),
       '#type' => 'language_select',
-      '#default_value' => $entity->getUntranslated()->language()->id,
+      '#default_value' => $entity->getUntranslated()->language()->getId(),
       '#languages' => Language::STATE_ALL,
     );
     $form['type'] = array(
