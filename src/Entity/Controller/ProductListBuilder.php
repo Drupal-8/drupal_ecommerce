@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
 /**
- * Provides a list controller for foo_bar entity.
+ * Provides a list controller for Product entity.
  */
 class ProductListBuilder extends EntityListBuilder {
   /**
@@ -27,7 +27,7 @@ class ProductListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\ecommerce\Entity\FooBar */
+    /* @var $entity \Drupal\ecommerce\Entity\Product */
     $row['id'] = $entity->id();
     $row['label'] = $this->getLabel($entity);
     $row['product_field'] = $entity->getProductField();
