@@ -4,7 +4,6 @@ namespace Drupal\ecommerce\Tests;
 
 use Drupal\Tests\UnitTestCase;
 
-use Drupal\ecommerce\Ecommerce\Product;
 use Drupal\ecommerce\Ecommerce\Cart;
 use Drupal\ecommerce\Ecommerce\CartItem;
 
@@ -28,15 +27,22 @@ class CartTest extends UnitTestCase {
   }
 
   public function setUp() {
-    $this->product1 = new Product();
-    $this->product1->setName("Product 1")
-      ->setReference("PR1")
-      ->setPrice(20.3);
 
-    $this->product2 = new Product();
-    $this->product2->setName("Product 2")
-      ->setReference("PR2")
-      ->setPrice(10);
+    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Entity\Product')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $this->product1->method('getReference')
+      ->willReturn('PR1');
+    $this->product1->method('getPrice')
+      ->willReturn(20.3);
+
+    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Entity\Product')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $this->product2->method('getReference')
+      ->willReturn('PR2');
+    $this->product2->method('getPrice')
+      ->willReturn(11);
 
   }
 

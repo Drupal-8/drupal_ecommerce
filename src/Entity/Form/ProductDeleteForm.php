@@ -3,7 +3,7 @@
  * @file
  * Contains \Drupal\foo_bar\Entity\Form\FooBarDeleteForm
  */
-namespace Drupal\ecommerce\Form;
+namespace Drupal\ecommerce\Entity\Form;
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;

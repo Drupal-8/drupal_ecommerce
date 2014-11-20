@@ -52,7 +52,7 @@ class ProductTest extends UnitTestCase {
   }
 
   /**
-   * @expectedException Drupal\ecommerce\ProductPriceException
+   * @expectedException Drupal\ecommerce\Ecommerce\ProductPriceException
    */
 
   public function testProductPriceMustBeNumeric() {

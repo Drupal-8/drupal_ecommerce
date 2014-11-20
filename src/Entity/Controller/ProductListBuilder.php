@@ -18,7 +18,9 @@ class ProductListBuilder extends EntityListBuilder {
   public function buildHeader() {
     $header['id'] = $this->t('ProductID');
     $header['label'] = $this->t('Label');
-    $header['product_field'] = $this->t('ProductField');
+    $header['ref'] = $this->t('Reference');
+    $header['name'] = $this->t('Name');
+    $header['price'] = $this->t('Price');
     $header['add_cart'] = $this->t('Add cart');
     return $header + parent::buildHeader ();
   }
@@ -30,7 +32,9 @@ class ProductListBuilder extends EntityListBuilder {
     /* @var $entity \Drupal\ecommerce\Entity\Product */
     $row['id'] = $entity->id();
     $row['label'] = $this->getLabel($entity);
-    $row['product_field'] = $entity->getProductField();
+    $row['ref'] = $entity->getReference();
+    $row['name'] = $entity->getName();
+    $row['price'] = $entity->getPrice();
     $row['add_cart'] = "Add cart";
     return $row + parent::buildRow ($entity);
   }

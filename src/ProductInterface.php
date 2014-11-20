@@ -42,6 +42,22 @@ interface ProductInterface extends  ContentEntityInterface  {
    * @return string
    *   The content of the field.
    */
-  public function getProductField();
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription();
+  /**
+   * {@inheritdoc}
+   */
+  public function getReference();
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrice();
+  /**
+   * {@inheritdoc}
+   */
+  public function getImage();
 
 }

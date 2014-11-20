@@ -13,7 +13,7 @@ product.list:
   requirements:
     _permission: 'view_product'
 product.add:
-  path: '/product/add'
+  path: '/admin/product/add'
   defaults:
     _entity_form: product.add
     _title: 'Add Product Content'

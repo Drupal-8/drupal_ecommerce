@@ -4,7 +4,7 @@
  * Definition of Drupal\foo_bar\Entity\Form\FooBarFormController.
  */
 
-namespace Drupal\ecommerce\Form;
+namespace Drupal\ecommerce\Entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Language\Language;
@@ -21,7 +21,7 @@ class ProductForm extends ContentEntityForm {
     $form = parent::form($form, $form_state);
     $entity = $this->entity;
     $form['user_id'] = array(
-      '#type' => 'textfield',
+      '#type' => 'hidden',
       '#title' => 'UID',
       '#default_value' => $entity->user_id->target_id,
       '#size' => 60,
