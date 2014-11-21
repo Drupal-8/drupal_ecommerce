@@ -6,6 +6,8 @@
 namespace Drupal\ecommerce\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+
+use Drupal\ecommerce\Entity\Product;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Drupal\ecommerce\Ecommerce\ProductDAO;
@@ -18,24 +20,17 @@ class EcommerceController extends ControllerBase {
   public function __construct($database) {
     $this->database = $database;
   }
-  public function createdb() {
-
-
-    if (!$this->database->schema()->tableExists("product")) {
-      drupal_install_schema("ecommerce");
-      drupal_set_message(t("Table created"));
-    } else {
-      drupal_set_message(t("Table already exists"), "error");
-    }
-
-    return $this->redirect('<front>');
-  }
-
 
   public function testDAO() {
 
-    $myProduct = ProductDAO::get(1);
+    $myProduct =  Product::create();
+    $myProduct->setName("Mi producto")
+      ->setDescription("Mi producto")
+      ->setReference("Ref")
+      ->setPrice(29.2);
 
+    //$myProduct = ProductDAO::get(1);
+    ProductDAO::save($myProduct);
     var_dump($myProduct);
 
   }

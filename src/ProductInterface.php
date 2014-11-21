@@ -36,6 +36,7 @@ interface ProductInterface extends  ContentEntityInterface  {
    *   The content of the field.
    */
   public function getName();
+  public function setName($name);
   /**
    * Return the Value of Foo Bar Field.
    *
@@ -47,14 +48,17 @@ interface ProductInterface extends  ContentEntityInterface  {
    * {@inheritdoc}
    */
   public function getDescription();
+  public function setDescription($description);
   /**
    * {@inheritdoc}
    */
   public function getReference();
+  public function setReference($reference);
   /**
    * {@inheritdoc}
    */
   public function getPrice();
+  public function setPrice($price);
   /**
    * {@inheritdoc}
    */

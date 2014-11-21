@@ -6,13 +6,19 @@ class ProductDAO {
 
   public static function get($nid) {
 
-    $entityProdut = \Drupal::entityManager()->getStorage("product")->load($nid);
-
-    $product = new Product();
-    $product->setName($entityProdut->getName())
-      ->setDescription($entityProdut->getProductField());
+    $product = \Drupal::entityManager()->getStorage("product")->load($nid);
 
     return $product;
   }
+
+  public static function save($product) {
+
+    $entityProduct = \Drupal::entityManager()->getStorage("product");
+
+    $entityProduct->save($product);
+
+    return $product;
+  }
+
 
 }

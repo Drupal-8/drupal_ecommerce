@@ -40,14 +40,6 @@ product.settings:
    _title: 'Product Settings'
   requirements:
     _permission: 'admin_product'
-product.install:
-  path: '/product/install'
-  defaults:
-   _content: '\Drupal\ecommerce\Controller\EcommerceController::createdb'
-   _title: 'Product Settings'
-  requirements:
-    _permission: 'admin_product'
-
 product.testdao:
   path: '/product/test'
   defaults:
