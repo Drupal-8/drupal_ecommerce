@@ -12,14 +12,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Drupal\ecommerce\Ecommerce\ProductDAO;
 
+use Drupal\ecommerce\Ecommerce\Cart;
+use Drupal\ecommerce\Ecommerce\CartItem;
+
+use Symfony\Component\HttpFoundation\Cookie;
+
+use Drupal\ecommerce\Ecommerce\CartDAO;
 
 class EcommerceController extends ControllerBase {
-
-  protected $database;
-
-  public function __construct($database) {
-    $this->database = $database;
-  }
 
   public function testDAO() {
 
@@ -34,14 +34,23 @@ class EcommerceController extends ControllerBase {
     var_dump($myProduct);
 
   }
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    // Instantiates this form class.
-    return new static(
-    // Load the service required to construct this class.
-      $container->get('database')
-    );
+
+  public function addToCart($productId) {
+
+    //@todo test that id is not null
+    $product = ProductDAO::get($productId);
+
+    $shoppingCart = CartDAO::get();
+
+
+    //$shoppingCart = new Cart();
+
+    $shoppingCart->addItem(new CartItem($product,1));
+
+
+    CartDAO::save($shoppingCart);
+
+
   }
+
 }

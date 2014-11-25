@@ -47,3 +47,11 @@ product.testdao:
     _title: 'TestDAO'
   requirements:
     _permission: 'access content'
+
+product.addtocart:
+  path: '/product/{productId}/addtocart'
+  defaults:
+    _content: '\Drupal\ecommerce\Controller\EcommerceController::addToCart'
+    _title: 'TestDAO'
+  requirements:
+    _permission: 'access content'

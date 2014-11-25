@@ -36,4 +36,9 @@ class Cart  {
     }
     return $result;
   }
+
+  public function getCartLines() {
+
+    return $this->lineCarts;
+  }
 }

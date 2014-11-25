@@ -8,10 +8,20 @@ namespace Drupal\ecommerce\Entity\Controller;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
+use Drupal\Core\Routing\LinkGeneratorTrait;
+use Drupal\Core\Routing\UrlGeneratorTrait;
+
+use Drupal\Core\Url;
+
 /**
  * Provides a list controller for Product entity.
  */
 class ProductListBuilder extends EntityListBuilder {
+
+  use LinkGeneratorTrait;
+  use UrlGeneratorTrait;
+
+
   /**
    * {@inheritdoc}
    */
@@ -29,13 +39,16 @@ class ProductListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
+
+    $linkGenerator = \Drupal::service('link_generator');
+
     /* @var $entity \Drupal\ecommerce\Entity\Product */
     $row['id'] = $entity->id();
     $row['label'] = $this->getLabel($entity);
     $row['ref'] = $entity->getReference();
     $row['name'] = $entity->getName();
     $row['price'] = $entity->getPrice();
-    $row['add_cart'] = "Add cart";
+    $row['add_cart'] = $this->l(t('Add to cart') , Url::fromRoute('product.addtocart', array('productId' => $entity->id() )));
     return $row + parent::buildRow ($entity);
   }
 }

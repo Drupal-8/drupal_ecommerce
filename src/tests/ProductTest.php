@@ -3,12 +3,15 @@
 namespace Drupal\ecommerce\Tests;
 
 use Drupal\ecommerce\Entity\Product;
+
 use Drupal\Tests\UnitTestCase;
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
 /**
- * @ingroup Ecommerce
- * @group Ecommerce
+ * @ingroup EcommerceProduct
+ * @group EcommerceProduct
  */
 class ProductTest extends UnitTestCase {
   /**
@@ -23,7 +26,13 @@ class ProductTest extends UnitTestCase {
   }
 
   public function setUp() {
-    $this->myProduct = Product::create();
+
+    $container = new ContainerBuilder();
+
+    \Drupal::setContainer($container);
+
+    //$this->myProduct = Product::create();
+    $this->myProduct = Product::createInstance();
 
     $this->productName = "Mi producto";
     $this->productDesc = "Mi descripción";
@@ -51,17 +60,4 @@ class ProductTest extends UnitTestCase {
 
   }
 
-
-
-  /**
-   * @expectedException Drupal\ecommerce\Ecommerce\ProductPriceException
-   */
-  /*
-  public function testProductPriceMustBeNumeric() {
-
-    $oneProduct = Product::create();
-    $oneProduct->setPrice("ten");
-
-  }
-  */
 }
