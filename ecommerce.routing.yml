@@ -47,7 +47,6 @@ product.testdao:
     _title: 'TestDAO'
   requirements:
     _permission: 'access content'
-
 product.addtocart:
   path: '/product/{productId}/addtocart'
   defaults:

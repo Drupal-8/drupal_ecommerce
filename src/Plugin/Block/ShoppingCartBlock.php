@@ -5,11 +5,9 @@
  */
 namespace Drupal\ecommerce\Plugin\Block;
 
-
-use Drupal\block\Annotation\Block;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Annotation\Translation;
 use Drupal\ecommerce\Ecommerce\CartDAO;
+use Drupal\ecommerce\Ecommerce\Printer;
 
 /**
  * Provides a shooping cart block.
@@ -25,25 +23,7 @@ class ShoppingCartBlock extends BlockBase {
 
   public function build() {
     $shoppingCart = CartDAO::get();
-    $cartLines = $shoppingCart->getCartLines();
-    foreach ($cartLines as $key => $cartline) {
-      $rows[] = $cartline->getProduct()->getName();
-    }
-
-    $header = array(
-      $this->t('Product'),
-    );
-
-
-    return array(
-      'table' => array(
-        '#theme' => 'table',
-        '#header' => $header,
-        '#rows' => $rows,
-        '#attributes' => array('class' => array('table-class')),
-      ),
-    );
+    return Printer::printShoppingCart($shoppingCart);
   }
-
 
 }

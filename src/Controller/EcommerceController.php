@@ -8,19 +8,15 @@ namespace Drupal\ecommerce\Controller;
 use Drupal\Core\Controller\ControllerBase;
 
 use Drupal\ecommerce\Entity\Product;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Drupal\ecommerce\Ecommerce\ProductDAO;
-
-use Drupal\ecommerce\Ecommerce\Cart;
 use Drupal\ecommerce\Ecommerce\CartItem;
-
-use Symfony\Component\HttpFoundation\Cookie;
-
 use Drupal\ecommerce\Ecommerce\CartDAO;
 
 class EcommerceController extends ControllerBase {
-
+  /*
+   * @Todo
+   * Remove only for testing purpose
+   */
   public function testDAO() {
 
     $myProduct =  Product::create();
@@ -36,21 +32,17 @@ class EcommerceController extends ControllerBase {
   }
 
   public function addToCart($productId) {
+    try {
+      //@todo test that id is not null
+      $product = ProductDAO::get($productId);
 
-    //@todo test that id is not null
-    $product = ProductDAO::get($productId);
+      $shoppingCart = CartDAO::get();
 
-    $shoppingCart = CartDAO::get();
+      $shoppingCart->addItem(new CartItem($product,1));
 
-
-    //$shoppingCart = new Cart();
-
-    $shoppingCart->addItem(new CartItem($product,1));
-
-
-    CartDAO::save($shoppingCart);
-
-
+      CartDAO::save($shoppingCart);
+    } catch (\Exception $e) {
+      drupal_set_message ($e->getMessage (), 'error');
+    }
   }
-
 }

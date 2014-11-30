@@ -2,46 +2,30 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
-use Drupal;
-
-use SebastianBergmann\Exporter\Exception;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CartDAO {
 
   static public function get() {
-    $session_manager = \Drupal::service("session_manager");
-    $session_manager->start();
-    try {
-      $userAttributeBag = $session_manager->getBag('my_storage_key');
 
-      $shoppingCart = $userAttributeBag->get('shoopingcart', new Cart());
+    $session = new Session();
+    $shoppingCart = $session->get('shoppingCart');
 
-    } catch (Exception $e) {
-      $shoppingCart = new Cart();
-    }
+    if ($shoppingCart) return unserialize($shoppingCart);
+    else return new Cart();
 
-
-    return $shoppingCart;
   }
 
   static public function save($shoppingCart) {
-    $session_manager = \Drupal::service("session_manager");
-    $session_manager->start();
 
-    var_dump($session_manager->getId());
+    $session = new Session();
+    $session->set (
+      'shoppingCart',
+      serialize($shoppingCart)
+    );
 
-    $myAttributeBag = new AttributeBag('my_storage_key');
-    $myAttributeBag->setName('some_descriptive_name');
-    $myAttributeBag->set('shoopingcart',serialize($shoppingCart));
-    $session_manager->registerBag($myAttributeBag);
+    $session->save();
 
-    $session_manager->save();
-
-
-    //$cookie = new Cookie("shoopingcart", serialize($shoppingCart));
   }
 
 }
