@@ -51,6 +51,13 @@ product.addtocart:
   path: '/product/{productId}/addtocart'
   defaults:
     _content: '\Drupal\ecommerce\Controller\EcommerceController::addToCart'
-    _title: 'TestDAO'
+    _title: 'Add to cart'
+  requirements:
+    _permission: 'access content'
+product.showcart:
+  path: '/product/shoppingcart'
+  defaults:
+    _content: '\Drupal\ecommerce\Controller\EcommerceController::showCart'
+    _title: 'Shopping Cart'
   requirements:
     _permission: 'access content'

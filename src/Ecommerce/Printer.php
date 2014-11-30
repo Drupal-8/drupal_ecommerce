@@ -6,7 +6,7 @@ class Printer {
 
 
   static public function printShortShoppingCart($shoppingCart) {
-    
+
     $cartLines = $shoppingCart->getCartLines();
     foreach ($cartLines as $key => $cartline) {
       $items[] = $cartline->getAmount() . ' x ' . $cartline->getProduct()->getName();

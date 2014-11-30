@@ -11,6 +11,8 @@ use Drupal\ecommerce\Entity\Product;
 use Drupal\ecommerce\Ecommerce\ProductDAO;
 use Drupal\ecommerce\Ecommerce\CartItem;
 use Drupal\ecommerce\Ecommerce\CartDAO;
+use Drupal\ecommerce\Ecommerce\Printer;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class EcommerceController extends ControllerBase {
   /*
@@ -33,6 +35,7 @@ class EcommerceController extends ControllerBase {
 
   public function addToCart($productId) {
     try {
+
       //@todo test that id is not null
       $product = ProductDAO::get($productId);
 
@@ -41,8 +44,24 @@ class EcommerceController extends ControllerBase {
       $shoppingCart->addItem(new CartItem($product,1));
 
       CartDAO::save($shoppingCart);
+
+      //Redirect to previous page
+      $request = \Drupal::request();
+      $referer = $request->headers->get('referer');
+      return RedirectResponse::create($referer);
+
+
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
   }
+
+  public function showCart() {
+
+    $shoppingCart = CartDAO::get();
+
+    return Printer::printShoppingCart($shoppingCart);
+
+  }
+
 }
