@@ -23,7 +23,7 @@ class ShoppingCartBlock extends BlockBase {
 
   public function build() {
     $shoppingCart = CartDAO::get();
-    return Printer::printShoppingCart($shoppingCart);
+    return Printer::printShortShoppingCart($shoppingCart);
   }
 
 }
