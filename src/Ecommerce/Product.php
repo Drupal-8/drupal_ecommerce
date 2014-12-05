@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
-class _Product {
+class Product {
 
   protected $name;
   protected $description;

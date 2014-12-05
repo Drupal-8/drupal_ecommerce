@@ -36,7 +36,6 @@ class CartDAOTest extends UnitTestCase {
     $this->shoopingCart->method('totalAmount')
       ->willReturn(20.3);
 
-
   }
 
   public function testaddItemToCart() {
