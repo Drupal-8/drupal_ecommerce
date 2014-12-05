@@ -2,12 +2,9 @@
 
 namespace Drupal\ecommerce\Tests;
 
-use Drupal\ecommerce\Entity\Product;
+use Drupal\ecommerce\Ecommerce\Product;
 
 use Drupal\Tests\UnitTestCase;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 
 /**
  * @ingroup EcommerceProduct
@@ -27,12 +24,8 @@ class ProductTest extends UnitTestCase {
 
   public function setUp() {
 
-    $container = new ContainerBuilder();
-
-    \Drupal::setContainer($container);
-
-    //$this->myProduct = Product::create();
-    $this->myProduct = Product::createInstance();
+    $this->myProduct = new Product();
+    //$this->myProduct = Product::createInstance();
 
     $this->productName = "Mi producto";
     $this->productDesc = "Mi descripción";
