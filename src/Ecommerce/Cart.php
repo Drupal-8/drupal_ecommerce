@@ -22,20 +22,27 @@ class Cart  {
    */
   public function addItem($newLineCart) {
 
+    $flag = true;
     foreach ($this->lineCarts as $lineCart) {
-      if ($newLineCart->getProductReference() ==  $lineCart->getProductReference() ) {
-        $newLineCart->increaseAmount($lineCart->getAmount());
+      if ($newLineCart->getProductReference() == $lineCart->getProductReference() ) {
+        $lineCart->increaseAmount($newLineCart->getAmount());
+        $flag = false;
       }
     }
-
-    $this->lineCarts[ $newLineCart->getProductReference() ]= $newLineCart;
+    //@Todo remove flag
+    if ($flag) $this->lineCarts[] = $newLineCart;
   }
 
   /*
- * @Todo change function name to removeCartItem
- */
+  * @Todo change function name to removeCartItem
+  * @Todo is key don´ exists we must throw an exception
+  */
   public function removeProduct($productReference) {
-    unset($this->lineCarts[$productReference]);
+    foreach ($this->lineCarts as $key => $lineCart) {
+      if ($productReference ==  $lineCart->getProductReference() ) {
+        unset($this->lineCarts[$key]);
+      }
+    }
   }
 
   public function totalAmount() {
@@ -47,7 +54,6 @@ class Cart  {
   }
 
   public function getCartLines() {
-
     return $this->lineCarts;
   }
 }

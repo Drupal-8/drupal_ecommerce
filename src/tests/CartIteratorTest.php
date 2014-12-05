@@ -15,27 +15,32 @@ class CartIteratorTest extends UnitTestCase {
 
   public function setUp() {
 
-    $cartLines[0] = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
+    $cartLine0 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $cartLines[0]->method('getProductReference')
+    $cartLine0->method('getProductReference')
       ->willReturn('PR1');
-    $cartLines[0]->method('lineCartAmount')
+    $cartLine0->method('lineCartAmount')
       ->willReturn(20.3);
 
-    $cartLines[1] = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
+    $cartLine1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $cartLines[1]->method('getProductReference')
+    $cartLine1->method('getProductReference')
       ->willReturn('PR2');
-    $cartLines[1]->method('lineCartAmount')
+    $cartLine1->method('lineCartAmount')
       ->willReturn(10.3);
+
+    $cartLines[0] = $cartLine0;
+    $cartLines[1] = $cartLine1;
 
     $this->cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Cart')
       ->disableOriginalConstructor()
       ->getMock();
     $this->cart->method('getCartLines')
       ->willReturn($cartLines);
+    $this->cart->method('countProducts')
+      ->willReturn(2);
 
     $this->cartIterator = new CartIterator($this->cart);
   }
@@ -57,7 +62,7 @@ class CartIteratorTest extends UnitTestCase {
     $cartIterator = new CartIterator($cart);
 
     $cartLine = $cartIterator->current();
-    $this->assertEquals(null, $cartLine->getProductReference());
+    $this->assertEquals(null, $cartLine);
 
   }
 
@@ -66,4 +71,21 @@ class CartIteratorTest extends UnitTestCase {
     $this->assertEquals("PR1", $cartLine->getProductReference());
 
   }
-} 
+  public function testNextElement() {
+    $this->cartIterator->next();
+    $cartLine = $this->cartIterator->current();
+    $this->assertEquals("PR2", $cartLine->getProductReference());
+  }
+
+  public function testForeach() {
+
+    $keys[0] = "PR1";
+    $keys[1] = "PR2";
+
+    foreach($this->cartIterator as $key => $cartLine) {
+      $this->assertEquals($keys[$key], $cartLine->getProductReference());
+    }
+
+  }
+
+}
