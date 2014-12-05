@@ -10,10 +10,16 @@ class Cart  {
     $this->lineCarts = array();
   }
 
+  /*
+   * @Todo change function name to countItem()
+   */
   public function countProducts() {
     return count($this->lineCarts);
   }
 
+  /*
+   * @Todo change function name to addCartItem
+   */
   public function addItem($newLineCart) {
 
     foreach ($this->lineCarts as $lineCart) {
@@ -25,6 +31,9 @@ class Cart  {
     $this->lineCarts[ $newLineCart->getProductReference() ]= $newLineCart;
   }
 
+  /*
+ * @Todo change function name to removeCartItem
+ */
   public function removeProduct($productReference) {
     unset($this->lineCarts[$productReference]);
   }
