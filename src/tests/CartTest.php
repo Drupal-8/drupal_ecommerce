@@ -28,7 +28,7 @@ class CartTest extends UnitTestCase {
 
   public function setUp() {
 
-    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Entity\Product')
+    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Product')
       ->disableOriginalConstructor()
       ->getMock();
     $this->product1->method('getReference')
@@ -36,7 +36,7 @@ class CartTest extends UnitTestCase {
     $this->product1->method('getPrice')
       ->willReturn(20.3);
 
-    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Entity\Product')
+    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Product')
       ->disableOriginalConstructor()
       ->getMock();
     $this->product2->method('getReference')
@@ -44,6 +44,7 @@ class CartTest extends UnitTestCase {
     $this->product2->method('getPrice')
       ->willReturn(11);
 
+    $this->myCart = new Cart();
   }
 
   //New card has 0 products
@@ -51,55 +52,64 @@ class CartTest extends UnitTestCase {
   //Whem a product is added the number os products in cart increased
   public function testaddItemToCart() {
 
-    $myCart = new Cart();
-    $this->assertEquals(0 , $myCart->countProducts());
+    
+    $this->assertEquals(0 , $this->myCart->countProducts());
 
-    $myCart->addItem(new CartItem($this->product1));
+    $this->myCart->addItem(CartItem::create($this->product1));
 
-    $this->assertEquals(1 , $myCart->countProducts());
+    $this->assertEquals(1 , $this->myCart->countProducts());
 
-    $myCart->addItem(new CartItem($this->product2));
+    $this->myCart->addItem(CartItem::create($this->product2));
 
-    $this->assertEquals(2 , $myCart->countProducts());
+    $this->assertEquals(2 , $this->myCart->countProducts());
   }
 
 
 
   public function testAddMoreThenOneItemFromAProduct() {
 
-    $myCart = new Cart();
+    
 
-    $cartLine = new CartItem($this->product1, 2);
+    $cartLine = CartItem::create($this->product1, 2);
 
-    $myCart->addItem($cartLine);
+    $this->myCart->addItem($cartLine);
 
-    $this->assertEquals(1 , $myCart->countProducts());
+    $this->assertEquals(1 , $this->myCart->countProducts());
 
   }
 
   public function testRemoveAProductsByItsReference() {
-    $myCart = new Cart();
+    
 
-    $myCart->addItem(new CartItem($this->product1));
+    $this->myCart->addItem(CartItem::create($this->product1));
 
-    $myCart->removeProduct('PR1');
+    $this->myCart->removeProduct('PR1');
 
-    $this->assertEquals(0 , $myCart->countProducts());
+    $this->assertEquals(0 , $this->myCart->countProducts());
 
   }
 
+  /*
+  public function testGetAProductsByItsReference() {
+
+    $this->myCart->addItem(CartItem::create($this->product1));
+
+    $this->myCart->getProduct('PR1');
+
+    $this->assertEquals(0 , $this->myCart->countProducts());
+
+  }
+  */
+
   public function testTotalCostFromCartLines() {
 
+    $this->myCart->addItem(CartItem::create($this->product1));
 
-    $myCart = new Cart();
+    $this->assertEquals(20.3 , $this->myCart->totalAmount());
 
-    $myCart->addItem(new CartItem($this->product1));
+    $this->myCart->addItem(CartItem::create($this->product2));
 
-    $this->assertEquals(20.3 , $myCart->totalAmount());
-
-    $myCart->addItem(new CartItem($this->product2));
-
-    $this->assertEquals(30.3 , $myCart->totalAmount());
+    $this->assertEquals(31.3 , $this->myCart->totalAmount());
 
   }
 
@@ -107,25 +117,25 @@ class CartTest extends UnitTestCase {
   public function testTotalCostFromProductsWithMultipleAmount() {
 
 
-    $myCart = new Cart();
+    
 
-    $myCart->addItem(new CartItem($this->product1, 2));
+    $this->myCart->addItem(CartItem::create($this->product1, 2));
 
-    $this->assertEquals(40.6 , $myCart->totalAmount());
+    $this->assertEquals(40.6 , $this->myCart->totalAmount());
 
   }
 
   public function testAddSeveralTimesTheSameProduct() {
 
 
-    $myCart = new Cart();
+    
 
-    $myCart->addItem(new CartItem($this->product1, 2));
-    $myCart->addItem(new CartItem($this->product1, 1));
+    $this->myCart->addItem(CartItem::create($this->product1, 2));
+    $this->myCart->addItem(CartItem::create($this->product1, 1));
 
-    $this->assertEquals(1 , $myCart->countProducts());
+    $this->assertEquals(1 , $this->myCart->countProducts());
 
-    $this->assertEquals(60.9 , $myCart->totalAmount());
+    $this->assertEquals(60.9 , $this->myCart->totalAmount());
 
   }
 
