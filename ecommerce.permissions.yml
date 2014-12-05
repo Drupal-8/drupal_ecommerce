@@ -1,10 +1,10 @@
-'delete product entity':
+'delete_product':
   title: Delete product content.
-'add product entity':
+'add_product':
   title: Add product content
-'view product entity':
+'view_product':
   title: View product content
-'edit product entity':
+'edit_product':
   title: Edit product content
-'administer product entity':
+'administer_product':
   title: Administer product settings
