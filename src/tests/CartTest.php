@@ -68,8 +68,6 @@ class CartTest extends UnitTestCase {
 
   public function testAddMoreThenOneItemFromAProduct() {
 
-    
-
     $cartLine = CartItem::create($this->product1, 2);
 
     $this->myCart->addItem($cartLine);
@@ -79,7 +77,6 @@ class CartTest extends UnitTestCase {
   }
 
   public function testRemoveAProductsByItsReference() {
-    
 
     $this->myCart->addItem(CartItem::create($this->product1));
 
@@ -89,17 +86,6 @@ class CartTest extends UnitTestCase {
 
   }
 
-  /*
-  public function testGetAProductsByItsReference() {
-
-    $this->myCart->addItem(CartItem::create($this->product1));
-
-    $this->myCart->getProduct('PR1');
-
-    $this->assertEquals(0 , $this->myCart->countProducts());
-
-  }
-  */
 
   public function testTotalCostFromCartLines() {
 
@@ -116,9 +102,6 @@ class CartTest extends UnitTestCase {
 
   public function testTotalCostFromProductsWithMultipleAmount() {
 
-
-    
-
     $this->myCart->addItem(CartItem::create($this->product1, 2));
 
     $this->assertEquals(40.6 , $this->myCart->totalAmount());
@@ -126,9 +109,6 @@ class CartTest extends UnitTestCase {
   }
 
   public function testAddSeveralTimesTheSameProduct() {
-
-
-    
 
     $this->myCart->addItem(CartItem::create($this->product1, 2));
     $this->myCart->addItem(CartItem::create($this->product1, 1));
