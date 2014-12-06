@@ -13,34 +13,53 @@ use Drupal\ecommerce\Ecommerce\CartIterator;
  */
 class CartIteratorTest extends UnitTestCase {
 
+  protected $cartIterator;
+  protected $cart;
+
   public function setUp() {
 
-    $cartLine0 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
+    $cartLine[0] = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $cartLine0->method('getProductReference')
+    $cartLine[0]->method('getProductReference')
       ->willReturn('PR1');
-    $cartLine0->method('lineCartAmount')
+    $cartLine[0]->method('lineCartAmount')
       ->willReturn(20.3);
 
-    $cartLine1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
+    $cartLine[1] = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartItem')
       ->disableOriginalConstructor()
       ->getMock();
-    $cartLine1->method('getProductReference')
+    $cartLine[1]->method('getProductReference')
       ->willReturn('PR2');
-    $cartLine1->method('lineCartAmount')
+    $cartLine[1]->method('lineCartAmount')
       ->willReturn(10.3);
 
-    $cartLines[0] = $cartLine0;
-    $cartLines[1] = $cartLine1;
 
-    $this->cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Cart')
+    $this->cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartInterface')
       ->disableOriginalConstructor()
       ->getMock();
-    $this->cart->method('getCartLines')
-      ->willReturn($cartLines);
-    $this->cart->method('countProducts')
+    $this->cart->method('getCartItem')
+      ->will($this->onConsecutiveCalls($cartLine[0], $cartLine[1]));
+
+    $this->cart->method('countItems')
       ->willReturn(2);
+
+    /*
+    $this->cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartInterface')
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $this->cart->expects($this->at(0))->method('getCartItem')
+      ->with(0)
+      ->willReturn($cartLine[0]);
+
+     $this->cart->expects($this->at(1))->method('getCartItem')
+       ->with(1)
+       ->willReturn($cartLine[1]);
+
+    $this->cart->method('countItems')
+      ->willReturn(2);
+    */
 
     $this->cartIterator = new CartIterator($this->cart);
   }
@@ -53,11 +72,11 @@ class CartIteratorTest extends UnitTestCase {
 
   public function testGetCurrentFromEmptyCart() {
 
-    $cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Cart')
+    $cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartInterface')
       ->disableOriginalConstructor()
       ->getMock();
-    $cart->method('getCartLines')
-      ->willReturn(array());
+    $cart->method('getCartItem')
+      ->willReturn(null);
 
     $cartIterator = new CartIterator($cart);
 
@@ -66,26 +85,32 @@ class CartIteratorTest extends UnitTestCase {
 
   }
 
+
   public function testGetCurrent() {
+
     $cartLine = $this->cartIterator->current();
     $this->assertEquals("PR1", $cartLine->getProductReference());
 
   }
   public function testNextElement() {
+    $cartLine = $this->cartIterator->current();
     $this->cartIterator->next();
     $cartLine = $this->cartIterator->current();
     $this->assertEquals("PR2", $cartLine->getProductReference());
   }
 
+  /*
   public function testForeach() {
 
     $keys[0] = "PR1";
     $keys[1] = "PR2";
 
     foreach($this->cartIterator as $key => $cartLine) {
+      var_dump($key);
+      var_dump($cartLine);
       $this->assertEquals($keys[$key], $cartLine->getProductReference());
     }
 
   }
-
+  */
 }

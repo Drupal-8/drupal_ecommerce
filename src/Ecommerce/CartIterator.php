@@ -8,13 +8,13 @@ class CartIterator implements \Iterator {
   protected $cart;
   protected $position = 0;
 
-  public function __construct( $cart) {
+  public function __construct(CartInterface $cart) {
     $this->cart = $cart;
-    $this->cartLines = $this->cart->getCartLines();
+    //$this->cartLines = $this->cart->getCartLines();
   }
   public function current() {
-    if ($this->cart->countProducts() == 0 ) return null;
-    return $this->cartLines[$this->position];
+    if ($this->cart->countItems() == 0 ) return null;
+    return $this->cart->getCartItem($this->position);
   }
   public function next() {
     $this->position++;
@@ -27,6 +27,6 @@ class CartIterator implements \Iterator {
     $this->position = 0;
   }
   public function valid() {
-    return isset($this->cartLines[$this->position]);
+    return $this->cart->getCartItem($this->position);
   }
 } 

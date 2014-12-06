@@ -57,11 +57,12 @@ class EcommerceController extends ControllerBase {
   }
 
   public function showCart() {
-
-    $shoppingCart = CartDAO::get();
-
-    return Printer::printShoppingCart($shoppingCart);
-
+    try {
+      $shoppingCart = CartDAO::get();
+      return Printer::printShoppingCart($shoppingCart);
+    } catch (\Exception $e) {
+      drupal_set_message ($e->getMessage (), 'error');
+    }
   }
 
 }

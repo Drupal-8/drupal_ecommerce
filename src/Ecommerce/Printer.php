@@ -7,8 +7,8 @@ class Printer {
 
   static public function printShortShoppingCart($shoppingCart) {
 
-    $cartLines = $shoppingCart->getCartLines();
-    foreach ($cartLines as $key => $cartline) {
+    $chartIterator = $shoppingCart->getIterator();
+    foreach ($chartIterator as $key => $cartline) {
       $items[] = $cartline->getAmount() . ' x ' . $cartline->getProduct()->getName();
     }
     return array(
@@ -28,8 +28,8 @@ class Printer {
 
     $tranlationManager = \Drupal::translation();
 
-    $cartLines = $shoppingCart->getCartLines();
-    foreach ($cartLines as $key => $cartline) {
+    $chartIterator = $shoppingCart->getIterator();
+    foreach ($chartIterator as $key => $cartline) {
       $rows[] = array(
         $cartline->getAmount(),
         $cartline->getProduct()->getName(),

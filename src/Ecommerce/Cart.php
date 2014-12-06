@@ -12,8 +12,13 @@ class Cart  {
 
   /*
    * @Todo change function name to countItem()
+   * @Deprecated see countItem()
+   *
    */
   public function countProducts() {
+    return $this->countItems();
+  }
+  public function countItems() {
     return count($this->lineCarts);
   }
 
@@ -55,5 +60,13 @@ class Cart  {
 
   public function getCartLines() {
     return $this->lineCarts;
+  }
+
+  public function getCartItem($index) {
+    return $this->lineCarts[$index];
+  }
+
+  public function getIterator() {
+    return new CartIterator($this);
   }
 }
