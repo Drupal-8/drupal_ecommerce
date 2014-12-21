@@ -23,5 +23,5 @@ interface CartInterface {
 
   public function getCartLines();
 
-  public function getCartItem();
+  public function getCartItem($position);
 }

@@ -4,22 +4,48 @@ namespace Drupal\ecommerce\Ecommerce;
 
 class Printer {
 
+  protected $twig;
 
-  static public function printShortShoppingCart($shoppingCart) {
+  /*
+  public function __construct(TwigEnvironment $twig)
+  {
+    $this->twig = $twig;
+  }
+
+  public static function create(ContainerInterface $container)
+  {
+    return new static(
+      $container->get('twig')
+    );
+  }
+  */
+
+  public function printShortShoppingCart($shoppingCart) {
+
+    $twig = \Drupal::service('twig');
 
     $chartIterator = $shoppingCart->getIterator();
     foreach ($chartIterator as $key => $cartline) {
-      $items[] = $cartline->getAmount() . ' x ' . $cartline->getProduct()->getName();
+      $items[] = $cartline->getAmount () . ' x ' . $cartline->getProduct ()->getName ();
     }
-    return array(
-      'cartitems' => array(
-        '#theme' => 'item_list',
-        '#items' => $items,
-      ),
-      'carttotal' => array(
-        '#markup' => 'Total: ' . self::formatPrice($shoppingCart->totalAmount())
-      ),
+
+    $path = drupal_get_path('module', 'ecommerce') ;
+    $params = array(
+      'items' => $items,
+      'total' => self::formatPrice($shoppingCart->totalAmount()),
     );
+    $template = $twig->loadTemplate($path . '/templates/shoppingCart.html.twig');
+
+    $markup = array (
+      '#markup' => $template->render($params),
+      '#attached' => [
+        'css' =>[
+          $path . '/assets/css/ecommerce.css'
+        ]
+      ]
+    );
+
+    return $markup;
 
   }
 

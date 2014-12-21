@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
-class Cart  {
+class Cart implements CartInterface {
 
   protected $lineCarts;
 
@@ -63,7 +63,9 @@ class Cart  {
   }
 
   public function getCartItem($index) {
-    return $this->lineCarts[$index];
+    if (isset($this->lineCarts[$index]))
+      return $this->lineCarts[$index];
+    else return null;
   }
 
   public function getIterator() {

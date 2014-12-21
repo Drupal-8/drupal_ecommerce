@@ -5,7 +5,7 @@ namespace Drupal\ecommerce\Tests;
 
 use Drupal\Tests\UnitTestCase;
 use Drupal\ecommerce\Ecommerce\CartIterator;
-
+use Drupal\ecommerce\Ecommerce\Cart;
 
 /**
  * @ingroup Ecommerce
@@ -43,23 +43,6 @@ class CartIteratorTest extends UnitTestCase {
 
     $this->cart->method('countItems')
       ->willReturn(2);
-
-    /*
-    $this->cart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartInterface')
-      ->disableOriginalConstructor()
-      ->getMock();
-
-    $this->cart->expects($this->at(0))->method('getCartItem')
-      ->with(0)
-      ->willReturn($cartLine[0]);
-
-     $this->cart->expects($this->at(1))->method('getCartItem')
-       ->with(1)
-       ->willReturn($cartLine[1]);
-
-    $this->cart->method('countItems')
-      ->willReturn(2);
-    */
 
     $this->cartIterator = new CartIterator($this->cart);
   }
@@ -99,7 +82,26 @@ class CartIteratorTest extends UnitTestCase {
     $this->assertEquals("PR2", $cartLine->getProductReference());
   }
 
-  /*
+
+
+
+  public function testForeachInEmptyCart() {
+
+    $keys[0] = "PR1";
+    $keys[1] = "PR2";
+
+    $cartIterator = new CartIterator(new Cart);
+
+    foreach($cartIterator as $key => $cartLine) {
+      var_dump($key);
+      var_dump($cartLine);
+      $this->fail("New Carts must be empty");
+      //$this->assertEquals($keys[$key], $cartLine->getProductReference());
+    }
+
+
+  }
+
   public function testForeach() {
 
     $keys[0] = "PR1";
@@ -107,10 +109,11 @@ class CartIteratorTest extends UnitTestCase {
 
     foreach($this->cartIterator as $key => $cartLine) {
       var_dump($key);
-      var_dump($cartLine);
+      var_dump($cartLine->getProductReference());
       $this->assertEquals($keys[$key], $cartLine->getProductReference());
     }
 
   }
-  */
+
+
 }

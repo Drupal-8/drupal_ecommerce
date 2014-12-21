@@ -119,4 +119,14 @@ class CartTest extends UnitTestCase {
 
   }
 
+  public function testGetCartItem() {
+
+
+    $product = $this->myCart->getCartItem(0);
+
+    $this->assertEquals(null , $product);
+
+  }
+
+
 }

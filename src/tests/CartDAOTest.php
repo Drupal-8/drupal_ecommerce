@@ -28,6 +28,15 @@ class CartDAOTest extends UnitTestCase {
 
   public function setUp() {
 
+    /*
+    $serviceA = $this->getMockBuilder('ServiceA')
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $client->getContainer()->set('my_bundle.service.a', $serviceA);
+    */
+
+    /*
     $this->shoopingCart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Cart')
       ->disableOriginalConstructor()
       ->getMock();
@@ -36,10 +45,14 @@ class CartDAOTest extends UnitTestCase {
     $this->shoopingCart->method('totalAmount')
       ->willReturn(20.3);
 
+    */
+  }
+
+  public function testSaveCart() {
 
   }
 
-  public function testaddItemToCart() {
+  public function testGetCart() {
 
   }
 

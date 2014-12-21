@@ -15,29 +15,17 @@ use Drupal\ecommerce\Ecommerce\Printer;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class EcommerceController extends ControllerBase {
-  /*
-   * @Todo
-   * Remove only for testing purpose
-   */
-  public function testDAO() {
 
-    $myProduct =  Product::create();
-    $myProduct->setName("Mi producto")
-      ->setDescription("Mi producto")
-      ->setReference("Ref")
-      ->setPrice(29.2);
-
-    //$myProduct = ProductDAO::get(1);
-    ProductDAO::save($myProduct);
-    var_dump($myProduct);
-
-  }
 
   public function addToCart($productId) {
     try {
 
+      $productDAO = \Drupal::service('ecommerce.product_dao');
+
       //@todo test that id is not null
-      $product = ProductDAO::get($productId);
+      $product = $productDAO::get($productId);
+
+
 
       $shoppingCart = CartDAO::get();
 
@@ -64,5 +52,6 @@ class EcommerceController extends ControllerBase {
       drupal_set_message ($e->getMessage (), 'error');
     }
   }
+
 
 }

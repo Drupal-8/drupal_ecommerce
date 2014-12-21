@@ -1,0 +1,5 @@
+services:
+  ecommerce.product_dao:
+    class: Drupal\ecommerce\Ecommerce\ProductDAO
+  ecommerce.cart_dao:
+    class: Drupal\ecommerce\Ecommerce\CartDAO
