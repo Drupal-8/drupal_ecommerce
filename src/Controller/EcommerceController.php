@@ -9,7 +9,7 @@ use Drupal\Core\Controller\ControllerBase;
 
 use Drupal\ecommerce\Entity\Product;
 use Drupal\ecommerce\Ecommerce\ProductDAO;
-use Drupal\ecommerce\Ecommerce\CartItem;
+use Drupal\ecommerce\Ecommerce\CartLine;
 use Drupal\ecommerce\Ecommerce\CartDAO;
 use Drupal\ecommerce\Ecommerce\Printer;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,11 +25,9 @@ class EcommerceController extends ControllerBase {
       //@todo test that id is not null
       $product = $productDAO::get($productId);
 
-
-
       $shoppingCart = CartDAO::get();
 
-      $shoppingCart->addItem(new CartItem($product,1));
+      $shoppingCart->addItem(CartLine::create($product,1));
 
       CartDAO::save($shoppingCart);
 

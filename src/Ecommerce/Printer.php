@@ -26,7 +26,7 @@ class Printer {
 
     $chartIterator = $shoppingCart->getIterator();
     foreach ($chartIterator as $key => $cartline) {
-      $items[] = $cartline->getAmount () . ' x ' . $cartline->getProduct ()->getName ();
+      $items[] = $cartline->getQuantity() . ' x ' . $cartline->getProduct()->getName();
     }
 
     $path = drupal_get_path('module', 'ecommerce') ;

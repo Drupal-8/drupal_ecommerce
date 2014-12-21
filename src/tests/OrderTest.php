@@ -6,7 +6,7 @@ use Drupal\Tests\UnitTestCase;
 
 use Drupal\ecommerce\Ecommerce\Order;
 
-use Drupal\ecommerce\Ecommerce\CartItem;
+use Drupal\ecommerce\Ecommerce\CartLine;
 
 /**
  * @ingroup Ecommerce
@@ -28,7 +28,7 @@ class OrderTest extends UnitTestCase {
 
   public function setUp() {
 
-    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Product')
+    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartLineItemInterface')
       ->disableOriginalConstructor()
       ->getMock();
     $this->product1->method('getReference')
@@ -36,7 +36,7 @@ class OrderTest extends UnitTestCase {
     $this->product1->method('getPrice')
       ->willReturn(20.3);
 
-    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Product')
+    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartLineItemInterface')
       ->disableOriginalConstructor()
       ->getMock();
     $this->product2->method('getReference')
@@ -54,11 +54,11 @@ class OrderTest extends UnitTestCase {
 
     $this->assertEquals(0 , $this->order->countItems());
 
-    $this->order->addItem(CartItem::create($this->product1));
+    $this->order->addItem(CartLine::create($this->product1));
 
     $this->assertEquals(1 , $this->order->countItems());
 
-    $this->order->addItem(CartItem::create($this->product2));
+    $this->order->addItem(CartLine::create($this->product2));
 
     $this->assertEquals(2 , $this->order->countItems());
 
@@ -67,7 +67,7 @@ class OrderTest extends UnitTestCase {
 
   public function testAddMoreThenOneItemFromAProduct() {
 
-    $this->order->addItem(CartItem::create($this->product1, 2));
+    $this->order->addItem(CartLine::create($this->product1, 2));
 
     $this->assertEquals(1 , $this->order->countItems());
 
@@ -77,11 +77,11 @@ class OrderTest extends UnitTestCase {
 
     $this->assertEquals(0, $this->order->totalAmount());
 
-    $this->order->addItem(CartItem::create($this->product1));
+    $this->order->addItem(CartLine::create($this->product1));
 
     $this->assertEquals(20.3 , $this->order->totalAmount());
 
-    $this->order->addItem(CartItem::create($this->product2));
+    $this->order->addItem(CartLine::create($this->product2));
 
     $this->assertEquals(31.3 , $this->order->totalAmount());
 

@@ -5,7 +5,7 @@ namespace Drupal\ecommerce\Tests;
 use Drupal\Tests\UnitTestCase;
 
 use Drupal\ecommerce\Ecommerce\Cart;
-use Drupal\ecommerce\Ecommerce\CartItem;
+use Drupal\ecommerce\Ecommerce\CartLine;
 
 
 /**
@@ -28,7 +28,7 @@ class CartTest extends UnitTestCase {
 
   public function setUp() {
 
-    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Product')
+    $this->product1 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartLineItemInterface')
       ->disableOriginalConstructor()
       ->getMock();
     $this->product1->method('getReference')
@@ -36,7 +36,7 @@ class CartTest extends UnitTestCase {
     $this->product1->method('getPrice')
       ->willReturn(20.3);
 
-    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Product')
+    $this->product2 = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\CartLineItemInterface')
       ->disableOriginalConstructor()
       ->getMock();
     $this->product2->method('getReference')
@@ -55,11 +55,11 @@ class CartTest extends UnitTestCase {
     
     $this->assertEquals(0 , $this->myCart->countProducts());
 
-    $this->myCart->addItem(CartItem::create($this->product1));
+    $this->myCart->addItem(CartLine::create($this->product1));
 
     $this->assertEquals(1 , $this->myCart->countProducts());
 
-    $this->myCart->addItem(CartItem::create($this->product2));
+    $this->myCart->addItem(CartLine::create($this->product2));
 
     $this->assertEquals(2 , $this->myCart->countProducts());
   }
@@ -68,7 +68,7 @@ class CartTest extends UnitTestCase {
 
   public function testAddMoreThenOneItemFromAProduct() {
 
-    $cartLine = CartItem::create($this->product1, 2);
+    $cartLine = CartLine::create($this->product1, 2);
 
     $this->myCart->addItem($cartLine);
 
@@ -78,7 +78,7 @@ class CartTest extends UnitTestCase {
 
   public function testRemoveAProductsByItsReference() {
 
-    $this->myCart->addItem(CartItem::create($this->product1));
+    $this->myCart->addItem(CartLine::create($this->product1));
 
     $this->myCart->removeProduct('PR1');
 
@@ -89,11 +89,11 @@ class CartTest extends UnitTestCase {
 
   public function testTotalCostFromCartLines() {
 
-    $this->myCart->addItem(CartItem::create($this->product1));
+    $this->myCart->addItem(CartLine::create($this->product1));
 
     $this->assertEquals(20.3 , $this->myCart->totalAmount());
 
-    $this->myCart->addItem(CartItem::create($this->product2));
+    $this->myCart->addItem(CartLine::create($this->product2));
 
     $this->assertEquals(31.3 , $this->myCart->totalAmount());
 
@@ -102,7 +102,7 @@ class CartTest extends UnitTestCase {
 
   public function testTotalCostFromProductsWithMultipleAmount() {
 
-    $this->myCart->addItem(CartItem::create($this->product1, 2));
+    $this->myCart->addItem(CartLine::create($this->product1, 2));
 
     $this->assertEquals(40.6 , $this->myCart->totalAmount());
 
@@ -110,8 +110,8 @@ class CartTest extends UnitTestCase {
 
   public function testAddSeveralTimesTheSameProduct() {
 
-    $this->myCart->addItem(CartItem::create($this->product1, 2));
-    $this->myCart->addItem(CartItem::create($this->product1, 1));
+    $this->myCart->addItem(CartLine::create($this->product1, 2));
+    $this->myCart->addItem(CartLine::create($this->product1, 1));
 
     $this->assertEquals(1 , $this->myCart->countProducts());
 

@@ -25,12 +25,12 @@ class Cart implements CartInterface {
   /*
    * @Todo change function name to addCartItem
    */
-  public function addItem($newLineCart) {
+  public function addItem(CartLineInterface $newLineCart) {
 
     $flag = true;
     foreach ($this->lineCarts as $lineCart) {
       if ($newLineCart->getProductReference() == $lineCart->getProductReference() ) {
-        $lineCart->increaseAmount($newLineCart->getAmount());
+        $lineCart->increaseAmount($newLineCart->getQuantity());
         $flag = false;
       }
     }

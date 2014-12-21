@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
-class Product {
+class Product implements CartLineItemInterface {
 
   protected $name;
   protected $description;

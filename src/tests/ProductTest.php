@@ -53,4 +53,8 @@ class ProductTest extends UnitTestCase {
 
   }
 
+  public function testProductsImplementsCartItemInterface() {
+    $this->assertInstanceOf('Drupal\ecommerce\Ecommerce\CartLineItemInterface', $this->myProduct);
+  }
+
 }

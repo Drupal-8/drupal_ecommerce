@@ -5,7 +5,7 @@ namespace Drupal\ecommerce\Tests;
 use Drupal\Tests\UnitTestCase;
 
 use Drupal\ecommerce\Ecommerce\Cart;
-use Drupal\ecommerce\Ecommerce\CartItem;
+use Drupal\ecommerce\Ecommerce\CartLine;
 
 
 /**

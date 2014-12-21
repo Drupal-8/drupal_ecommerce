@@ -13,7 +13,7 @@ interface CartInterface {
   /*
    * @Todo change function name to addCartItem
    */
-  public function addItem($newLineCart);
+  public function addItem(CartLineInterface $newLineCart);
   /*
    * @Todo change function name to removeCartItem
    */
