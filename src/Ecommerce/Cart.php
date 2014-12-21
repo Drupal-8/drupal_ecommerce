@@ -10,10 +10,8 @@ class Cart implements CartInterface {
     $this->lineCarts = array();
   }
 
-  /*
-   * @Todo change function name to countItem()
-   * @Deprecated see countItem()
-   *
+  /**
+   * @deprecated Replace by countItems()
    */
   public function countProducts() {
     return $this->countItems();
@@ -39,12 +37,15 @@ class Cart implements CartInterface {
   }
 
   /*
-  * @Todo change function name to removeCartItem
-  * @Todo is key don´ exists we must throw an exception
+  * @Deprecated
   */
   public function removeProduct($productReference) {
+    $this->removeItem($productReference);
+  }
+
+  public function removeItem($itemReference) {
     foreach ($this->lineCarts as $key => $lineCart) {
-      if ($productReference ==  $lineCart->getProductReference() ) {
+      if ($itemReference ==  $lineCart->getProductReference() ) {
         unset($this->lineCarts[$key]);
       }
     }

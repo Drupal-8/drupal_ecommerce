@@ -19,10 +19,10 @@ namespace Drupal\ecommerce\Ecommerce;
 class CartLine implements CartLineInterface {
 
   protected $amount;
-  protected $product;
+  protected $item;
 
-  function __construct(CartLineItemInterface $product, $quantity = 1) {
-    $this->product = $product;
+  function __construct(CartLineItemInterface $cartLineItem, $quantity = 1) {
+    $this->item = $cartLineItem;
     $this->quantity = $quantity;
   }
 
@@ -32,9 +32,15 @@ class CartLine implements CartLineInterface {
   public function getAmount() {
     return $this->getQuantity();
   }
-
+  /**
+   * @deprecated Replace by getItem
+   */
   public function getProduct() {
-    return $this->product;
+    return $this->getItem();
+  }
+
+  public function getItem() {
+    return $this->item;
   }
 
   public function getQuantity() {
@@ -45,11 +51,11 @@ class CartLine implements CartLineInterface {
    * @todo here we depende from object Product, instead we must depend from a interface.
    */
   public function getProductReference() {
-    return $this->getProduct()->getReference();
+    return $this->getItem()->getReference();
   }
 
   public function lineCartAmount() {
-    return $this->getQuantity() *  $this->getProduct()->getPrice();
+    return $this->getQuantity() *  $this->getItem()->getPrice();
   }
 
   /**
@@ -62,8 +68,8 @@ class CartLine implements CartLineInterface {
     $this->quantity += $increment;
   }
 
-  public static function create($product, $quantity = 1) {
-    return new static($product, $quantity);
+  public static function create(CartLineItemInterface $item, $quantity = 1) {
+    return new static($item, $quantity);
   }
 
 }
