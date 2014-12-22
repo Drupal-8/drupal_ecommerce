@@ -3,3 +3,6 @@ services:
     class: Drupal\ecommerce\Ecommerce\ProductDAO
   ecommerce.cart_dao:
     class: Drupal\ecommerce\Ecommerce\CartDAO
+  ecommerce.manager:
+    class: Drupal\ecommerce\Ecommerce\EcommerceManager
+    arguments: ['@ecommerce.product_dao','@ecommerce.cart_dao']

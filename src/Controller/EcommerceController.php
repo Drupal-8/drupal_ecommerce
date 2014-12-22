@@ -19,10 +19,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class EcommerceController extends ControllerBase {
 
+  /*
   public function __construct(ProductDAOInterface $productDAO, CartDAOInterface $cartDAO) {
     $this->productDAO = $productDAO;
     $this->cartDAO = $cartDAO;
     $this->ecommerceMannager = new EcommerceManager($this->productDAO, $this->cartDAO);
+  }
+  */
+
+  public function __construct($ecommerceManager) {
+    $this->ecommerceMannager = $ecommerceManager;
   }
 
   public function addToCart($productId) {
@@ -57,8 +63,7 @@ class EcommerceController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('ecommerce.product_dao'),
-      $container->get('ecommerce.cart_dao')
+      $container->get('ecommerce.manager')
     );
   }
 
