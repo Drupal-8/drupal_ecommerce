@@ -4,9 +4,9 @@ namespace Drupal\ecommerce\Ecommerce;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class CartDAO {
+class CartDAO implements CartDAOInterface {
 
-  static public function get() {
+   public function get() {
 
     $session = new Session();
     $shoppingCart = $session->get ('shoppingCart');
@@ -17,7 +17,7 @@ class CartDAO {
 
   }
 
-  static public function save($shoppingCart) {
+  public function save($shoppingCart) {
 
     $session = new Session();
     $session->set (

@@ -2,9 +2,9 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
-class ProductDAO {
+class ProductDAO implements ProductDAOInterface {
 
-  public static function get($nid) {
+  public function get($nid) {
 
     $productEntity = \Drupal::entityManager()->getStorage("product")->load($nid);
 
@@ -13,10 +13,11 @@ class ProductDAO {
       ->setDescription($productEntity->getDescription())
       ->setReference($productEntity->getReference())
       ->setPrice($productEntity->getPrice());
+
     return $product;
   }
 
-  public static function save($product) {
+  public function save($product) {
 
     $entityProduct = \Drupal::entityManager()->getStorage("product");
 
