@@ -2,13 +2,9 @@
 
 namespace Drupal\ecommerce\Tests;
 
-//use Drupal\ecommerce\Entity\Product;
+use Drupal\ecommerce\Ecommerce\Product;
 
 use Drupal\Tests\UnitTestCase;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-use Drupal\ecommerce\Ecommerce\Product;
 
 /**
  * @ingroup EcommerceProduct
@@ -27,12 +23,8 @@ class ProductTest extends UnitTestCase {
   }
 
   public function setUp() {
-    /*
-    $container = new ContainerBuilder();
 
-    \Drupal::setContainer($container);
-    */
-    $this->myProduct = Product::create();
+    $this->myProduct = new Product();
     //$this->myProduct = Product::createInstance();
 
     $this->productName = "Mi producto";
@@ -59,6 +51,10 @@ class ProductTest extends UnitTestCase {
     $this->assertEquals($this->productPrice , $this->myProduct->getPrice());
     //$this->assertEquals($this->productImage , $this->myProduct->getImage());
 
+  }
+
+  public function testProductsImplementsCartItemInterface() {
+    $this->assertInstanceOf('Drupal\ecommerce\Ecommerce\CartLineItemInterface', $this->myProduct);
   }
 
 }

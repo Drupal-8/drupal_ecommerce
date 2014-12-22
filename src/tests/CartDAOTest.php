@@ -5,7 +5,7 @@ namespace Drupal\ecommerce\Tests;
 use Drupal\Tests\UnitTestCase;
 
 use Drupal\ecommerce\Ecommerce\Cart;
-use Drupal\ecommerce\Ecommerce\CartItem;
+use Drupal\ecommerce\Ecommerce\CartLine;
 
 
 /**
@@ -28,6 +28,15 @@ class CartDAOTest extends UnitTestCase {
 
   public function setUp() {
 
+    /*
+    $serviceA = $this->getMockBuilder('ServiceA')
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $client->getContainer()->set('my_bundle.service.a', $serviceA);
+    */
+
+    /*
     $this->shoopingCart = $this->getMockBuilder('Drupal\ecommerce\Ecommerce\Cart')
       ->disableOriginalConstructor()
       ->getMock();
@@ -36,9 +45,14 @@ class CartDAOTest extends UnitTestCase {
     $this->shoopingCart->method('totalAmount')
       ->willReturn(20.3);
 
+    */
   }
 
-  public function testaddItemToCart() {
+  public function testSaveCart() {
+
+  }
+
+  public function testGetCart() {
 
   }
 

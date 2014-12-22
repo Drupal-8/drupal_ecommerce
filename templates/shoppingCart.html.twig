@@ -1,0 +1,9 @@
+{{ dump(items) }}
+<div class="shopping_cart">
+    <ul class="shopping_cart__items">
+        {% for item in items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    <div class="shopping_cart__total">{{ total }}</div>
+</div>

@@ -40,8 +40,6 @@ class ProductListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
 
-    $linkGenerator = \Drupal::service('link_generator');
-
     /* @var $entity \Drupal\ecommerce\Entity\Product */
     $row['id'] = $entity->id();
     $row['label'] = $this->getLabel($entity);

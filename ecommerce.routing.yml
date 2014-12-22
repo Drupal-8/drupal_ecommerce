@@ -40,13 +40,7 @@ product.settings:
    _title: 'Product Settings'
   requirements:
     _permission: 'admin_product'
-product.testdao:
-  path: '/product/test'
-  defaults:
-    _content: '\Drupal\ecommerce\Controller\EcommerceController::testDAO'
-    _title: 'TestDAO'
-  requirements:
-    _permission: 'access content'
+
 product.addtocart:
   path: '/product/{productId}/addtocart'
   defaults:
