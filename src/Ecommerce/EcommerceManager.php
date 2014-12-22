@@ -26,4 +26,7 @@ class EcommerceManager  {
     $this->cartDAO->save($shoppingCart);
   }
 
+  public function getCart() {
+    return $this->cartDAO->get();
+  }
 }

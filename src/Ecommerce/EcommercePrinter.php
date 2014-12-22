@@ -2,23 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
-class Printer {
-
-  protected $twig;
-
-  /*
-  public function __construct(TwigEnvironment $twig)
-  {
-    $this->twig = $twig;
-  }
-
-  public static function create(ContainerInterface $container)
-  {
-    return new static(
-      $container->get('twig')
-    );
-  }
-  */
+class EcommercePrinter {
 
   public function printShortShoppingCart($shoppingCart) {
 

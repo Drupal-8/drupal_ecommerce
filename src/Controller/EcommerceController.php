@@ -9,8 +9,7 @@ use Drupal\Core\Controller\ControllerBase;
 
 use Drupal\ecommerce\Ecommerce\EcommerceManager;
 
-use Drupal\ecommerce\Ecommerce\CartDAO;
-use Drupal\ecommerce\Ecommerce\Printer;
+use Drupal\ecommerce\Ecommerce\EcommercePrinter;
 
 use Drupal\ecommerce\Ecommerce\CartDAOInterface;
 use Drupal\ecommerce\Ecommerce\ProductDAOInterface;
@@ -23,13 +22,13 @@ class EcommerceController extends ControllerBase {
   public function __construct(ProductDAOInterface $productDAO, CartDAOInterface $cartDAO) {
     $this->productDAO = $productDAO;
     $this->cartDAO = $cartDAO;
+    $this->ecommerceMannager = new EcommerceManager($this->productDAO, $this->cartDAO);
   }
 
   public function addToCart($productId) {
     try {
 
-      $ecommerceManager = new EcommerceManager($this->productDAO, $this->cartDAO);
-      $ecommerceManager->addProductToCart($productId);
+      $this->ecommerceManager->addProductToCart($productId);
 
       //Redirect to previous page
       $request = \Drupal::request();
@@ -43,8 +42,11 @@ class EcommerceController extends ControllerBase {
 
   public function showCart() {
     try {
-      $shoppingCart = CartDAO::get();
-      return Printer::printShoppingCart($shoppingCart);
+
+      $shoppingCart =  $this->ecommerceMannager->getCart();
+
+      return EcommercePrinter::printShoppingCart($shoppingCart);
+
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }

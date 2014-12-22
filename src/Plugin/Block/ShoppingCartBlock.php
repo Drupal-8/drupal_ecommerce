@@ -6,8 +6,10 @@
 namespace Drupal\ecommerce\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\ecommerce\Ecommerce\CartDAO;
-use Drupal\ecommerce\Ecommerce\Printer;
+
+use Drupal\ecommerce\Ecommerce\EcommerceManager;
+use Drupal\ecommerce\Ecommerce\EcommercePrinter;
+
 
 /**
  * Provides a shooping cart block.
@@ -22,8 +24,14 @@ use Drupal\ecommerce\Ecommerce\Printer;
 class ShoppingCartBlock extends BlockBase {
 
   public function build() {
-    $shoppingCart = CartDAO::get();
-    return Printer::printShortShoppingCart($shoppingCart);
+
+    $this->ecommerceMannager = new EcommerceManager(
+      \Drupal::service('ecommerce.product_dao'),
+      \Drupal::service('ecommerce.cart_dao'));
+
+    $shoppingCart = $this->ecommerceMannager->getCart();
+
+    return EcommercePrinter::printShortShoppingCart($shoppingCart);
   }
 
 }
