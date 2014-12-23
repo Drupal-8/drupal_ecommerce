@@ -1,46 +1,3 @@
-product.view:
-  path: '/product/{product}'
-  defaults:
-    _entity_view: 'product'
-    _title: 'Product Content'
-  requirements:
-    _permission: 'view_product'
-product.list:
-  path: '/product/list'
-  defaults:
-    _entity_list: 'product'
-    _title: 'Product Content List'
-  requirements:
-    _permission: 'view_product'
-product.add:
-  path: '/admin/product/add'
-  defaults:
-    _entity_form: product.add
-    _title: 'Add Product Content'
-  requirements:
-    _permission: 'add_product'
-product.edit:
-  path: '/product/{product}/edit'
-  defaults:
-    _entity_form: product.edit
-    _title: 'Edit Product content'
-  requirements:
-    _permission: 'edit_product'
-product.delete:
-  path: '/product/{product}/delete'
-  defaults:
-    _entity_form: product.delete
-    _title: 'Delete Product Content '
-  requirements:
-    _permission: 'delete_product'
-product.settings:
-  path: 'admin/structure/product_settings'
-  defaults:
-   _form: '\Drupal\ecommerce\Entity\Form\ProductSettingsForm'
-   _title: 'Product Settings'
-  requirements:
-    _permission: 'admin_product'
-
 product.addtocart:
   path: '/product/{productId}/addtocart'
   defaults:
@@ -55,3 +12,52 @@ product.showcart:
     _title: 'Shopping Cart'
   requirements:
     _permission: 'access content'
+
+# ProductEntity routing definition
+product_entity.view:
+  path: '/admin/product_entity/{product_entity}'
+  defaults:
+    _entity_view: 'product_entity'
+    _title: 'ProductEntity Content'
+  requirements:
+    _entity_access: 'product_entity.view'
+
+product_entity.list:
+  path: '/admin/product_entity'
+  defaults:
+    _entity_list: 'product_entity'
+    _title: 'ProductEntity List'
+  requirements:
+    _permission: 'view ProductEntity entity'
+
+product_entity.add:
+  path: '/admin/product_entity/add'
+  defaults:
+    _entity_form: product_entity.add
+    _title: 'Add ProductEntity'
+  requirements:
+    _entity_create_access: 'product_entity'
+
+product_entity.edit:
+  path: '/admin/product_entity/{product_entity}/edit'
+  defaults:
+    _entity_form: product_entity.edit
+    _title: 'Edit ProductEntity'
+  requirements:
+    _entity_access: 'product_entity.edit'
+
+product_entity.delete:
+  path: '/admin/product_entity/{product_entity}/delete'
+  defaults:
+    _entity_form: product_entity.delete
+    _title: 'Delete ProductEntity'
+  requirements:
+    _entity_access: 'product_entity.delete'
+
+product_entity.settings:
+  path: 'admin/structure/product_entity'
+  defaults:
+   _form: '\Drupal\ecommerce\Entity\Form\ProductEntitySettingsForm'
+   _title: 'ProductEntity Settings'
+  requirements:
+    _permission: 'administer ProductEntity entity'

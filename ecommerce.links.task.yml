@@ -1,17 +1,20 @@
-product.settings_tab:
-  route_name: product.settings
+# ProductEntity routing definition
+product_entity.settings_tab:
+  route_name: product_entity.settings
   title: 'Settings'
-  base_route: product.settings
-product.view:
-  route_name: product.view
-  base_route: product.view
+  base_route: product_entity.settings
+
+product_entity.view:
+  route_name: product_entity.view
+  base_route: product_entity.view
   title: 'View'
-product.page_edit:
-  route_name: product.edit
-  base_route: product.view
+
+product_entity.edit:
+  route_name: product_entity.edit
+  base_route: product_entity.view
   title: Edit
-product.delete_confirm:
-  route_name: product.delete
-  base_route: product.view
+
+product_entity.delete_confirm:
+  route_name:  product_entity.delete
+  base_route:  product_entity.view
   title: Delete
-  weight: 10

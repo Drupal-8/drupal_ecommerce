@@ -1,17 +1,25 @@
 <?php
+
 /**
  * @file
- * Contains \Drupal\ecommerce\ProductInterface.
+ * Contains Drupal\ecommerce\ProductEntityInterface.
  */
+
 namespace Drupal\ecommerce;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\EntityOwnerInterface;
 
 /**
- * Provides an interface defining a Product entity.
+ * Provides an interface defining a ProductEntity entity.
+ * @ingroup account
  */
-interface ProductInterface extends  ContentEntityInterface  {
+interface ProductEntityInterface extends ContentEntityInterface, EntityOwnerInterface
+{
+
+  // Add get/set methods for your configuration properties here.
+
   /**
    * Returns the identifier.
    *
@@ -59,9 +67,5 @@ interface ProductInterface extends  ContentEntityInterface  {
    */
   public function getPrice();
   public function setPrice($price);
-  /**
-   * {@inheritdoc}
-   */
-  public function getImage();
 
 }

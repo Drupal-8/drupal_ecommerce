@@ -1,0 +1,11 @@
+# ProductEntity menu items definition
+product_entity.list:
+  title: 'ProductEntity: Listing'
+  route_name: product_entity.list
+  description: 'List ProductEntity'
+
+product_entity.admin.structure.settings:
+  title: ProductEntity Settings
+  description: 'Configure ProductEntity entity'
+  route_name:  product_entity.settings
+  parent: system.admin_structure
