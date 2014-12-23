@@ -6,7 +6,7 @@ class ProductDAO implements ProductDAOInterface {
 
   public function get($nid) {
 
-    $productEntity = \Drupal::entityManager()->getStorage("product")->load($nid);
+    $productEntity = \Drupal::entityManager()->getStorage("product_entity")->load($nid);
 
     $product = new Product() ;
     $product->setName($productEntity->getName())
@@ -19,7 +19,7 @@ class ProductDAO implements ProductDAOInterface {
 
   public function save($product) {
 
-    $entityProduct = \Drupal::entityManager()->getStorage("product");
+    $entityProduct = \Drupal::entityManager()->getStorage("product_entity");
 
     $entityProduct->save($product);
 
