@@ -20,13 +20,16 @@ class EcommercePrinter {
     );
     $template = $twig->loadTemplate($path . '/templates/shoppingCart.html.twig');
 
-    $markup = array (
-      '#markup' => $template->render($params),
-      '#attached' => [
+    /*
+     * '#attached' => [
         'css' =>[
           $path . '/assets/css/ecommerce.css'
         ]
       ]
+     */
+    $markup = array (
+      '#markup' => $template->render($params),
+
     );
 
     return $markup;
