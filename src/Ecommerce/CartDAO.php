@@ -4,6 +4,9 @@ namespace Drupal\ecommerce\Ecommerce;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
+use malotor\ecommerce\CartDAOInterface;
+use malotor\ecommerce\Cart;
+
 class CartDAO implements CartDAOInterface {
 
    public function get() {

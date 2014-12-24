@@ -4,5 +4,5 @@ services:
   ecommerce.cart_dao:
     class: Drupal\ecommerce\Ecommerce\CartDAO
   ecommerce.manager:
-    class: Drupal\ecommerce\Ecommerce\EcommerceManager
+    class: malotor\ecommerce\EcommerceManager
     arguments: ['@ecommerce.product_dao','@ecommerce.cart_dao']

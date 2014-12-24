@@ -2,6 +2,9 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
+use malotor\ecommerce\ProductDAOInterface;
+use malotor\ecommerce\Product;
+
 class ProductDAO implements ProductDAOInterface {
 
   public function get($nid) {
