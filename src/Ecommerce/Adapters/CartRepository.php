@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\ecommerce\Ecommerce;
+namespace Drupal\ecommerce\Ecommerce\Adapters;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
-use malotor\ecommerce\CartDAOInterface;
+use malotor\ecommerce\Adapters\CartRepositoryInterface;
 use malotor\ecommerce\Cart;
 
-class CartDAO implements CartDAOInterface {
+class CartRepository implements CartRepositoryInterface {
 
    public function get() {
 

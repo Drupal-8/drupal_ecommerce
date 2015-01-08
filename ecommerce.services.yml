@@ -1,8 +1,8 @@
 services:
   ecommerce.product_dao:
-    class: Drupal\ecommerce\Ecommerce\ProductDAO
+    class: Drupal\ecommerce\Ecommerce\Adapters\ProductRepository
   ecommerce.cart_dao:
-    class: Drupal\ecommerce\Ecommerce\CartDAO
+    class: Drupal\ecommerce\Ecommerce\Adapters\CartRepository
   ecommerce.manager:
-    class: malotor\ecommerce\EcommerceManager
+    class: malotor\ecommerce\Ecommerce
     arguments: ['@ecommerce.product_dao','@ecommerce.cart_dao']

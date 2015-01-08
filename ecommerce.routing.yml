@@ -1,21 +1,21 @@
 product.addtocart:
   path: '/product/{productId}/addtocart'
   defaults:
-    _content: '\Drupal\ecommerce\Controller\EcommerceController::addToCart'
+    _controller: '\Drupal\ecommerce\Controller\EcommerceController::addToCart'
     _title: 'Add to cart'
   requirements:
     _permission: 'access content'
 product.showcart:
   path: '/product/shoppingcart'
   defaults:
-    _content: '\Drupal\ecommerce\Controller\EcommerceController::showCart'
+    _controller: '\Drupal\ecommerce\Controller\EcommerceController::showCart'
     _title: 'Shopping Cart'
   requirements:
     _permission: 'access content'
 
 # ProductEntity routing definition
 product_entity.view:
-  path: '/admin/product_entity/{product_entity}'
+  path: '/product_entity/{product_entity}'
   defaults:
     _entity_view: 'product_entity'
     _title: 'ProductEntity Content'

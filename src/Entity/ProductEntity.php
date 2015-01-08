@@ -79,7 +79,7 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
    * {@inheritdoc}
    */
   public function getDescription() {
-    return $this->description->value;
+    return $this->get('description')->value;
   }
   public function setDescription($description) {
     $this->set('description', $description);
@@ -89,7 +89,7 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
    * {@inheritdoc}
    */
   public function getReference() {
-    return $this->reference->value;
+    return $this->get('reference')->value;
   }
   public function setReference($reference) {
     $this->set('reference', $reference);
@@ -99,7 +99,7 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
    * {@inheritdoc}
    */
   public function getPrice() {
-    return $this->price->value;
+    return $this->get('price')->value;
   }
   public function setPrice($price) {
     $this->set('price', $price);

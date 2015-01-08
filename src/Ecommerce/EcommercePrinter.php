@@ -10,7 +10,7 @@ class EcommercePrinter {
 
     $chartIterator = $shoppingCart->getIterator();
     foreach ($chartIterator as $key => $cartline) {
-      $items[] = $cartline->getQuantity() . ' x ' . $cartline->getProduct()->getName();
+      $items[] = $cartline->getQuantity() . ' x ' . $cartline->getItem()->getName();
     }
 
     $path = drupal_get_path('module', 'ecommerce') ;
@@ -44,9 +44,9 @@ class EcommercePrinter {
     $chartIterator = $shoppingCart->getIterator();
     foreach ($chartIterator as $key => $cartline) {
       $rows[] = array(
-        $cartline->getAmount(),
-        $cartline->getProduct()->getName(),
-        $cartline->getProduct()->getPrice(),
+        $cartline->getQuantity(),
+        $cartline->getItem()->getName(),
+        $cartline->getItem()->getPrice(),
         self::formatPrice($cartline->lineCartAmount())
       );
     }

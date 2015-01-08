@@ -7,34 +7,21 @@ namespace Drupal\ecommerce\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 
-use Drupal\ecommerce\Ecommerce\EcommerceManager;
-
 use Drupal\ecommerce\Ecommerce\EcommercePrinter;
-
-use Drupal\ecommerce\Ecommerce\CartDAOInterface;
-use Drupal\ecommerce\Ecommerce\ProductDAOInterface;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class EcommerceController extends ControllerBase {
 
-  /*
-  public function __construct(ProductDAOInterface $productDAO, CartDAOInterface $cartDAO) {
-    $this->productDAO = $productDAO;
-    $this->cartDAO = $cartDAO;
-    $this->ecommerceMannager = new EcommerceManager($this->productDAO, $this->cartDAO);
-  }
-  */
-
   public function __construct($ecommerceManager) {
-    $this->ecommerceMannager = $ecommerceManager;
+    $this->ecommerceManager = $ecommerceManager;
   }
 
   public function addToCart($productId) {
     try {
 
-      $this->ecommerceManager->addProductToCart($productId);
+      $this->ecommerceManager->addProductToCart($productId,1);
 
       //Redirect to previous page
       $request = \Drupal::request();
@@ -49,7 +36,7 @@ class EcommerceController extends ControllerBase {
   public function showCart() {
     try {
 
-      $shoppingCart =  $this->ecommerceMannager->getCart();
+      $shoppingCart =  $this->ecommerceManager->getCart();
 
       return EcommercePrinter::printShoppingCart($shoppingCart);
 
