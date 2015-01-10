@@ -8,23 +8,21 @@ use malotor\ecommerce\Adapters\CartRepositoryInterface;
 use malotor\ecommerce\CartLine;
 use malotor\ecommerce\Cart;
 
-class CartRepository implements CartRepositoryInterface {
+class CartDBRepository implements CartRepositoryInterface {
+
+  private $userId;
 
   public function __construct() {
     $this->account = \Drupal::service("current_user");
     $this->productRepository = \Drupal::service("ecommerce.product_dao");
+    $this->userId = $this->account->id();
   }
 
   public function get() {
-
-    $id = $this->account->id();
-
     $result = db_select('CartLine', 'c')
       ->fields('c')
-      ->condition('c.user_id', $id)
+      ->condition('c.user_id', $this->userId)
       ->execute();
-
-
     $cart = new Cart();
 
     foreach ($result as $record) {
@@ -37,57 +35,23 @@ class CartRepository implements CartRepositoryInterface {
 
   public function save($shoppingCart) {
 
-    $id = $this->account->id();
-
-
-
-
     db_delete('CartLine')
-      ->condition('user_id', $id)
+      ->condition('user_id', $this->userId)
       ->execute();
 
-
-
     $chartIterator = $shoppingCart->getIterator();
-    foreach ($chartIterator as $key => $cartline) {
 
+    foreach ($chartIterator as $key => $cartline) {
       $fields = array(
-        'user_id' => $id,
+        'user_id' => $this->userId,
         'item_id' => $cartline->getItemReference(),
         'item_quantity' => $cartline->getQuantity(),
       );
 
-
-
-      $result = db_insert('CartLine')
+      db_insert('CartLine')
         ->fields($fields)
         ->execute();
-
     }
-
-  }
-  /*
-   public function get() {
-
-    $session = new Session();
-    $shoppingCart = $session->get ('shoppingCart');
-
-    if ($shoppingCart)
-      return unserialize ($shoppingCart);
-    else return new Cart();
-
   }
 
-  public function save($shoppingCart) {
-
-    $session = new Session();
-    $session->set (
-      'shoppingCart',
-      serialize ($shoppingCart)
-    );
-
-    $session->save ();
-
-  }
-  */
 }
