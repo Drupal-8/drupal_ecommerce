@@ -7,24 +7,27 @@ use malotor\ecommerce\ProductFactory;
 
 class ProductRepository implements ProductRepositoryInterface {
 
-  public function getProductByReference($reference) {
+  private $entityStorage;
 
-    $productEntity = \Drupal::entityManager()->getStorage("product_entity")->loadByProperties(['reference' => $reference]);
+  public function __construct() {
+    $this->entityStorage = \Drupal::entityManager()->getStorage("product_entity");
+  }
+
+  public function getProductByReference($reference) {
+    $productEntity = $this->entityStorage->loadByProperties(['reference' => $reference]);
     $productEntity = array_shift(array_values($productEntity));
     $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
     return $product;
   }
 
   public function get($id) {
-    $productEntity = \Drupal::entityManager()->getStorage("product_entity")->load($id);
+    $productEntity = $this->entityStorage->load($id);
     $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
     return $product;
   }
 
   public function save($product) {
-    $entityProduct = \Drupal::entityManager()->getStorage("product_entity");
-    $entityProduct->save($product);
-    return $product;
+    return new Product();
   }
 
 }
