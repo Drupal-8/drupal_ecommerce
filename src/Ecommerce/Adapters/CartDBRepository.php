@@ -12,9 +12,9 @@ class CartDBRepository implements CartRepositoryInterface {
 
   private $userId;
 
-  public function __construct() {
-    $this->account = \Drupal::service("current_user");
-    $this->productRepository = \Drupal::service("ecommerce.product_dao");
+  public function __construct($current_user, $productRepository) {
+    $this->account = $current_user;
+    $this->productRepository = $productRepository;
     $this->userId = $this->account->id();
   }
 

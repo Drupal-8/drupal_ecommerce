@@ -9,16 +9,13 @@ use malotor\ecommerce\Cart;
 
 class CartSessionRepository implements CartRepositoryInterface {
 
-
-   public function get() {
-
+  public function get() {
+    $cart = new Cart();
     $session = new Session();
-    $shoppingCart = $session->get ('shoppingCart');
 
-    if ($shoppingCart)
-      return unserialize ($shoppingCart);
-    else return new Cart();
+    if ($shoppingCart = $session->get ('shoppingCart')) $cart = unserialize ($shoppingCart);
 
+    return $cart;
   }
 
   public function save($shoppingCart) {
