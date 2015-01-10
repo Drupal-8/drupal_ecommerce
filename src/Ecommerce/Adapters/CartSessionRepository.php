@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use malotor\ecommerce\Adapters\CartRepositoryInterface;
 use malotor\ecommerce\Cart;
 
-class CartRepository implements CartRepositoryInterface {
+class CartSessionRepository implements CartRepositoryInterface {
+
 
    public function get() {
 

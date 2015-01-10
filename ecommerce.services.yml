@@ -2,7 +2,7 @@ services:
   ecommerce.product_dao:
     class: Drupal\ecommerce\Ecommerce\Adapters\ProductRepository
   ecommerce.cart_dao:
-    class: Drupal\ecommerce\Ecommerce\Adapters\CartRepository
+    class: Drupal\ecommerce\Ecommerce\Adapters\CartDBRepository
   ecommerce.manager:
     class: malotor\ecommerce\Ecommerce
     arguments: ['@ecommerce.product_dao','@ecommerce.cart_dao']

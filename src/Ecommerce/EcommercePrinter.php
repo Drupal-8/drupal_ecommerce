@@ -4,10 +4,11 @@ namespace Drupal\ecommerce\Ecommerce;
 
 class EcommercePrinter {
 
-  public function printShortShoppingCart($shoppingCart) {
+  static public function printShortShoppingCart($shoppingCart) {
 
     $twig = \Drupal::service('twig');
 
+    $items = [];
     $chartIterator = $shoppingCart->getIterator();
     foreach ($chartIterator as $key => $cartline) {
       $items[] = $cartline->getQuantity() . ' x ' . $cartline->getItem()->getName();
@@ -20,13 +21,6 @@ class EcommercePrinter {
     );
     $template = $twig->loadTemplate($path . '/templates/shoppingCart.html.twig');
 
-    /*
-     * '#attached' => [
-        'css' =>[
-          $path . '/assets/css/ecommerce.css'
-        ]
-      ]
-     */
     $markup = array (
       '#markup' => $template->render($params),
 
