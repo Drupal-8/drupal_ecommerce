@@ -18,39 +18,53 @@ class CartDBRepository implements CartRepositoryInterface {
     $this->userId = $this->account->id();
   }
 
-  public function get() {
+  private function getCartLines() {
     $result = db_select('CartLine', 'c')
       ->fields('c')
       ->condition('c.user_id', $this->userId)
       ->execute();
-    $cart = new Cart();
-
+    $cartLines = [];
     foreach ($result as $record) {
-      $cart->addCartLine(CartLine::create($this->productRepository->getProductByReference($record->item_id), $record->item_quantity));
+      $cartLines[] = CartLine::create($this->productRepository->getProductByReference($record->item_id), $record->item_quantity);
     }
+    return $cartLines;
+  }
 
+  private function deleteCartLines() {
+    db_delete('CartLine')
+      ->condition('user_id', $this->userId)
+      ->execute();
+  }
+
+  private function insertCartLines($cartline) {
+
+    $fields = array(
+      'user_id' => $this->userId,
+      'item_id' => $cartline->getItemReference(),
+      'item_quantity' => $cartline->getQuantity(),
+    );
+    db_insert('CartLine')
+      ->fields($fields)
+      ->execute();
+  }
+
+  public function get() {
+
+    $carLines = $this->getCartLines();
+    $cart = new Cart();
+    foreach ($carLines as $carLine) {
+      $cart->addCartLine($carLine);
+    }
     return $cart;
 
   }
 
   public function save($shoppingCart) {
 
-    db_delete('CartLine')
-      ->condition('user_id', $this->userId)
-      ->execute();
-
+    $this->deleteCartLines();
     $chartIterator = $shoppingCart->getIterator();
-
-    foreach ($chartIterator as $key => $cartline) {
-      $fields = array(
-        'user_id' => $this->userId,
-        'item_id' => $cartline->getItemReference(),
-        'item_quantity' => $cartline->getQuantity(),
-      );
-
-      db_insert('CartLine')
-        ->fields($fields)
-        ->execute();
+    foreach ($chartIterator as $cartline) {
+      $this->insertCartLines($cartline);
     }
   }
 
