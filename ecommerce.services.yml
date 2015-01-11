@@ -2,9 +2,12 @@ services:
   ecommerce.product_repository:
     class: Drupal\ecommerce\Ecommerce\Adapters\ProductRepository
     arguments: ['@entity.manager']
+  ecommerce.cartline_repository:
+      class: Drupal\ecommerce\Ecommerce\Adapters\CartLineRepository
+      arguments: ['@current_user','@ecommerce.product_repository']
   ecommerce.cart_repository:
     class: Drupal\ecommerce\Ecommerce\Adapters\CartDBRepository
-    arguments: ['@current_user','@ecommerce.product_repository']
+    arguments: ['@cartline_repository']
   ecommerce.manager:
     class: malotor\ecommerce\Ecommerce
     arguments: ['@ecommerce.product_repository','@ecommerce.cart_repository']
