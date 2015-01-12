@@ -27,8 +27,8 @@ class ShoppingCartBlock extends BlockBase {
 
     $ecommerceMannager = \Drupal::service('ecommerce.manager');
     $shoppingCart = $ecommerceMannager->getCart();
-
-    return EcommercePrinter::printShortShoppingCart($shoppingCart);
+    $printer = new EcommercePrinter();
+    return $printer->printShortShoppingCart($shoppingCart);
   }
 
 }

@@ -7,14 +7,20 @@ use malotor\ecommerce\ProductFactory;
 
 class ProductRepository implements ProductRepositoryInterface {
 
-  private $entityStorage;
+  private $productEntityDAO;
 
-  public function __construct($entityManager) {
-    $this->entityStorage = $entityManager->getStorage("product_entity");
+  public function __construct($productEntityDAO) {
+    $this->productEntityDAO = $productEntityDAO;
+  }
+
+  public function get($id) {
+    $productEntity = $this->productEntityDAO->get($id);
+    $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
+    return $product;
   }
 
   protected function getProductByProperty($propertyName, $propertyValue) {
-    $productEntity = $this->entityStorage->loadByProperties([$propertyName => $propertyValue]);
+    $productEntity = $this->productEntityDAO->getByProperty($propertyName, $propertyValue);
     $productEntity = array_shift(array_values($productEntity));
     $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
     return $product;
@@ -24,14 +30,7 @@ class ProductRepository implements ProductRepositoryInterface {
     return $this->getProductByProperty('reference', $reference);
   }
 
-  public function get($id) {
-    $productEntity = $this->entityStorage->load($id);
-    $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
-    return $product;
-  }
-
   public function save($product) {
-    return new Product();
   }
 
 }

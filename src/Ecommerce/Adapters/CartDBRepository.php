@@ -7,11 +7,9 @@ use malotor\ecommerce\Cart;
 
 class CartDBRepository implements CartRepositoryInterface {
 
-
   public function __construct($cartLineRepository) {
     $this->cartLineRepository = $cartLineRepository;
   }
-
 
   public function get() {
 

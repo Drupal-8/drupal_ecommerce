@@ -2,7 +2,20 @@
 
 namespace Drupal\ecommerce\Ecommerce;
 
+use Drupal\Core\Routing\LinkGeneratorTrait;
+use Drupal\Core\Routing\UrlGeneratorTrait;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
+
 class EcommercePrinter {
+
+  use LinkGeneratorTrait;
+  use UrlGeneratorTrait;
+  use StringTranslationTrait;
+
+  public function __construct() {
+
+  }
 
   static public function printShortShoppingCart($shoppingCart) {
 
@@ -30,26 +43,30 @@ class EcommercePrinter {
 
   }
 
+  public function printShoppingCart($shoppingCart) {
 
-  static public function printShoppingCart($shoppingCart) {
+    $productDao = \Drupal::service('ecommerce.product_entity_dao');
 
-    $tranlationManager = \Drupal::translation();
-
+    $rows = [];
     $chartIterator = $shoppingCart->getIterator();
     foreach ($chartIterator as $key => $cartline) {
+      $productEntitys = $productDao->getByProperty('reference', $cartline->getItemReference());
+      $productEntity = array_shift(array_values($productEntitys));
       $rows[] = array(
         $cartline->getQuantity(),
         $cartline->getItem()->getName(),
         $cartline->getItem()->getPrice(),
-        self::formatPrice($cartline->lineCartAmount())
+        self::formatPrice($cartline->lineCartAmount()),
+        $this->l($this->t('Remove from cart') , Url::fromRoute('ecommerce.removefromcart', array('productId' => $productEntity->id()))),
       );
     }
 
     $header = array(
-      $tranlationManager->translate('Amount'),
-      $tranlationManager->translate('Product'),
-      $tranlationManager->translate('Price'),
-      $tranlationManager->translate('Total'),
+      $this->t('Amount'),
+      $this->t('Product'),
+      $this->t('Price'),
+      $this->t('Total'),
+      $this->t('Options'),
     );
 
 

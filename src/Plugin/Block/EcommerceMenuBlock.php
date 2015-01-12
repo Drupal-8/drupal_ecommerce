@@ -33,7 +33,7 @@ class EcommerceMenuBlock extends BlockBase {
 
     $items = array(
       $this->l($this->t('Product List') , Url::fromRoute('product_entity.list')),
-      $this->l($this->t('Shopping Cart') , Url::fromRoute('product.showcart')),
+      $this->l($this->t('Shopping Cart') , Url::fromRoute('ecommerce.showcart')),
     );
 
     return array(

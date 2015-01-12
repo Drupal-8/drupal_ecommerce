@@ -23,10 +23,7 @@ class EcommerceController extends ControllerBase {
 
       $this->ecommerceManager->addProductToCart($productId,1);
 
-      //Redirect to previous page
-      $request = \Drupal::request();
-      $referer = $request->headers->get('referer');
-      return RedirectResponse::create($referer);
+      return $this->redirectToPreviosPage();
 
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
@@ -37,13 +34,37 @@ class EcommerceController extends ControllerBase {
     try {
 
       $shoppingCart =  $this->ecommerceManager->getCart();
-
-      return EcommercePrinter::printShoppingCart($shoppingCart);
+      //$shoppingCart = $ecommerceMannager->getCart();
+      $printer = new EcommercePrinter();
+      return $printer->printShoppingCart($shoppingCart);
 
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
   }
+
+  public function removeFromCart($productId) {
+    try {
+
+      $this->ecommerceManager->removeProductFromCart($productId);
+
+      return $this->redirectToPreviosPage();
+
+    } catch (\Exception $e) {
+      drupal_set_message ($e->getMessage (), 'error');
+    }
+  }
+
+
+
+  private function redirectToPreviosPage() {
+    //Redirect to previous page
+    $request = \Drupal::request();
+    $referer = $request->headers->get('referer');
+    return RedirectResponse::create($referer);
+  }
+
+
 
   /**
    * {@inheritdoc}

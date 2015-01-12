@@ -2,6 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce\Adapters;
 
+use malotor\ecommerce\CartLine;
 
 class CartLineRepository {
 

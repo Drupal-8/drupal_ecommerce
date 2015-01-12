@@ -1,11 +1,20 @@
-product.addtocart:
+ecommerce.addtocart:
   path: '/product/{productId}/addtocart'
   defaults:
     _controller: '\Drupal\ecommerce\Controller\EcommerceController::addToCart'
+    _title: 'Remove from cart'
+  requirements:
+    _permission: 'access content'
+
+ecommerce.removefromcart:
+  path: '/product/{productId}/removefromcart'
+  defaults:
+    _controller: '\Drupal\ecommerce\Controller\EcommerceController::removeFromCart'
     _title: 'Add to cart'
   requirements:
     _permission: 'access content'
-product.showcart:
+
+ecommerce.showcart:
   path: '/product/shoppingcart'
   defaults:
     _controller: '\Drupal\ecommerce\Controller\EcommerceController::showCart'
