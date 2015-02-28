@@ -21,7 +21,7 @@ class EcommerceController extends ControllerBase {
   public function addToCart($productId) {
     try {
 
-      $this->ecommerceManager->addProductToCart($productId,1);
+      $this->ecommerceManager->addProductToCart($productId);
 
       return $this->redirectToPreviosPage();
 
@@ -33,8 +33,8 @@ class EcommerceController extends ControllerBase {
   public function showCart() {
     try {
 
-      $shoppingCart =  $this->ecommerceManager->getCart();
-      //$shoppingCart = $ecommerceMannager->getCart();
+      $shoppingCart =  $this->ecommerceManager->getCartItems();
+
       $printer = new EcommercePrinter();
       return $printer->printShoppingCart($shoppingCart);
 

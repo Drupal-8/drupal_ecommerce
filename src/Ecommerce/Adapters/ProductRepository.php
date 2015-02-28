@@ -2,8 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce\Adapters;
 
-use malotor\ecommerce\Adapters\ProductRepositoryInterface;
-use malotor\ecommerce\ProductFactory;
+use malotor\shoppingcart\Ports\ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface {
 
@@ -15,15 +14,15 @@ class ProductRepository implements ProductRepositoryInterface {
 
   public function get($id) {
     $productEntity = $this->productEntityDAO->get($id);
-    $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
-    return $product;
+    //$product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
+    return $productEntity;
   }
 
   protected function getProductByProperty($propertyName, $propertyValue) {
     $productEntity = $this->productEntityDAO->getByProperty($propertyName, $propertyValue);
     $productEntity = array_shift(array_values($productEntity));
-    $product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
-    return $product;
+    //$product = ProductFactory::createProduct($productEntity->getName(), $productEntity->getReference(), $productEntity->getDescription(), $productEntity->getPrice());
+    return $productEntity;
   }
 
   public function getProductByReference($reference) {

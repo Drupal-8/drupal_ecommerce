@@ -12,5 +12,5 @@ services:
     class: Drupal\ecommerce\Ecommerce\Adapters\CartDBRepository
     arguments: ['@ecommerce.cartline_repository']
   ecommerce.manager:
-    class: malotor\ecommerce\Ecommerce
+    class: malotor\shoppingcart\Application\Ecommerce
     arguments: ['@ecommerce.product_repository','@ecommerce.cart_repository']

@@ -22,7 +22,7 @@ class CartTemplatePrinter extends TemplatePrinter {
 
     return array(
       'items' => $items,
-      'total' => EcommerceTools::formatPrice($this->shoppingCart->totalAmount()),
+      'total' => EcommerceTools::formatPrice($this->shoppingCart->getTotalAmount()),
     );
   }
 }

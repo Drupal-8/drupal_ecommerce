@@ -14,6 +14,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ecommerce\ProductEntityInterface;
 use Drupal\user\UserInterface;
 
+use malotor\shoppingcart\domain\Item;
 /**
  * Defines the ProductEntity entity.
  *
@@ -51,7 +52,7 @@ use Drupal\user\UserInterface;
  *   field_ui_base_route = "product_entity.settings"
  * )
  */
-class ProductEntity extends ContentEntityBase implements ProductEntityInterface
+class ProductEntity extends ContentEntityBase implements ProductEntityInterface, Item
 {
 
   /**
@@ -59,9 +60,9 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
-    $values += array(
+    $values += [
       'user_id' => \Drupal::currentUser()->id(),
-    );
+    ];
   }
 
   /**
@@ -151,6 +152,13 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
   }
 
   /**
+  *
+   */
+  public function getId() {
+   return $this->id();
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
@@ -172,21 +180,21 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
       ->setSetting('handler', 'default')
       ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
       ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'author',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'weight' => 5,
-        'settings' => array(
+        'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'autocomplete_type' => 'tags',
           'placeholder' => '',
-        ),
-      ))
+        ],
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -194,20 +202,20 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the ProductEntity entity.'))
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
         'max_length' => 50,
         'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -228,15 +236,15 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
       ->setDescription(t('The description of the Product entity.'))
       ->setTranslatable(TRUE)
 
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -5,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string',
         'weight' => -5,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -246,21 +254,21 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
       ->setLabel(t('Reference'))
       ->setDescription(t('The reference of the Product entity.'))
       ->setTranslatable(TRUE)
-      ->setPropertyConstraints('value', array('Length' => array('max' => 10)))
-      ->setSettings(array(
+      ->setPropertyConstraints('value', ['Length' => ['max' => 10]])
+      ->setSettings([
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string',
         'weight' => -6,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -268,15 +276,15 @@ class ProductEntity extends ContentEntityBase implements ProductEntityInterface
       ->setLabel(t('Price'))
       ->setDescription(t('The price of the Product entity.'))
       ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -8,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string',
         'weight' => -8,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 

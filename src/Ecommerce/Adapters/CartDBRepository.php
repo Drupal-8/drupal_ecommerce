@@ -2,8 +2,8 @@
 
 namespace Drupal\ecommerce\Ecommerce\Adapters;
 
-use malotor\ecommerce\Adapters\CartRepositoryInterface;
-use malotor\ecommerce\Cart;
+use malotor\shoppingcart\Ports\CartRepositoryInterface;
+use malotor\shoppingcart\Domain\Cart;
 
 class CartDBRepository implements CartRepositoryInterface {
 
@@ -16,7 +16,7 @@ class CartDBRepository implements CartRepositoryInterface {
     $carLines = $this->cartLineRepository->getCartLines();
     $cart = new Cart();
     foreach ($carLines as $carLine) {
-      $cart->addCartLine($carLine);
+      $cart->addItem($carLine);
     }
     return $cart;
 

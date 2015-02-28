@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce\Adapters;
 
-use malotor\ecommerce\CartLine;
+use malotor\shoppingcart\domain\CartLine;
 
 class CartLineRepository {
 
@@ -34,7 +34,7 @@ class CartLineRepository {
 
     $fields = array(
       'user_id' => $this->userId,
-      'item_id' => $cartline->getItemReference(),
+      'item_id' => $cartline->getItem()->getId(),
       'item_quantity' => $cartline->getQuantity(),
     );
     db_insert('CartLine')
