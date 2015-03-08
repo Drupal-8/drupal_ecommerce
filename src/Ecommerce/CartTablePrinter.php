@@ -37,8 +37,8 @@ class CartTablePrinter extends TablePrinter {
     $productDao = \Drupal::service('ecommerce.product_entity_dao');
 
     $rows = [];
-    $chartIterator = $this->shoppingCart->getIterator();
-    foreach ($chartIterator as $key => $cartline) {
+    //$chartIterator = $this->shoppingCart->getIterator();
+    foreach ($this->shoppingCart as $key => $cartline) {
       $productEntitys = $productDao->getByProperty('reference', $cartline->getItemReference());
       $productEntity = array_shift(array_values($productEntitys));
       $rows[] = array(

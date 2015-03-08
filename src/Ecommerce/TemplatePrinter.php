@@ -7,8 +7,9 @@ abstract class TemplatePrinter {
   protected $path;
   protected $params = [];
 
-  public function __construct($shoppingCart) {
+  public function __construct($shoppingCart, $shoppingCartTotal) {
     $this->shoppingCart = $shoppingCart;
+    $this->shoppingCartTotal = $shoppingCartTotal;
     $this->twig = \Drupal::service('twig');
   }
 

@@ -4,8 +4,8 @@ namespace Drupal\ecommerce\Ecommerce;
 
 class EcommercePrinter {
 
-  static public function printShortShoppingCart($shoppingCart) {
-    $printer = new CartTemplatePrinter($shoppingCart);
+  static public function printShortShoppingCart($shoppingCart,$shoppingCartTotal) {
+    $printer = new CartTemplatePrinter($shoppingCart,$shoppingCartTotal);
     return $printer->render();
   }
 

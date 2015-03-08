@@ -6,11 +6,8 @@ services:
       class: Drupal\ecommerce\Ecommerce\Adapters\ProductEntityDAO
       arguments: ['@entity.manager']
   ecommerce.cartline_repository:
-      class: Drupal\ecommerce\Ecommerce\Adapters\CartLineRepository
+      class: Drupal\ecommerce\Ecommerce\Adapters\SessionLineCartRepository
       arguments: ['@current_user','@ecommerce.product_repository']
-  ecommerce.cart_repository:
-    class: Drupal\ecommerce\Ecommerce\Adapters\CartDBRepository
-    arguments: ['@ecommerce.cartline_repository']
   ecommerce.manager:
     class: malotor\shoppingcart\Application\Ecommerce
-    arguments: ['@ecommerce.product_repository','@ecommerce.cart_repository']
+    arguments: ['@ecommerce.product_repository','@ecommerce.cartline_repository']

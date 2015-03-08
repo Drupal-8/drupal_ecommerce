@@ -52,7 +52,7 @@ use malotor\shoppingcart\domain\Item;
  *   field_ui_base_route = "product_entity.settings"
  * )
  */
-class ProductEntity extends ContentEntityBase implements ProductEntityInterface, Item
+class ProductEntity extends ContentEntityBase implements ProductEntityInterface
 {
 
   /**

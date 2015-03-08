@@ -2,9 +2,9 @@
 
 namespace Drupal\ecommerce\Ecommerce\Adapters;
 
-use malotor\shoppingcart\Ports\ProductRepositoryInterface;
+use malotor\shoppingcart\Application\ItemRepositoryInterface;
 
-class ProductRepository implements ProductRepositoryInterface {
+class ProductRepository implements ItemRepositoryInterface {
 
   private $productEntityDAO;
 

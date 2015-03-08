@@ -15,14 +15,14 @@ class CartTemplatePrinter extends TemplatePrinter {
   }
   public function prepareParams() {
     $items = [];
-    $chartIterator = $this->shoppingCart->getIterator();
-    foreach ($chartIterator as $key => $cartline) {
+    //$chartIterator = $this->shoppingCart->getIterator();
+    foreach ($this->shoppingCart as $key => $cartline) {
       $items[] = $cartline->getQuantity() . ' x ' . $cartline->getItem()->getName();
     }
 
     return array(
       'items' => $items,
-      'total' => EcommerceTools::formatPrice($this->shoppingCart->getTotalAmount()),
+      'total' => EcommerceTools::formatPrice($this->shoppingCartTotal),
     );
   }
 }

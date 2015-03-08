@@ -26,11 +26,11 @@ class ShoppingCartBlock extends BlockBase {
   public function build() {
 
     $ecommerceMannager = \Drupal::service('ecommerce.manager');
-    $shoppingCart = $ecommerceMannager->getCart();
-
+    $shoppingCartLines = $ecommerceMannager->getCartItems();
+    $shoppingCartTotal = $ecommerceMannager->getCartTotalAmunt();
 
     $printer = new EcommercePrinter();
-    return $printer->printShortShoppingCart($shoppingCart);
+    return $printer->printShortShoppingCart($shoppingCartLines, $shoppingCartTotal);
   }
 
 }
