@@ -59,9 +59,12 @@ class EcommerceController extends ControllerBase {
 
   private function redirectToPreviosPage() {
     //Redirect to previous page
+    /*
     $request = \Drupal::request();
     $referer = $request->headers->get('referer');
-    return RedirectResponse::create($referer);
+    */
+    return RedirectResponse::create('');
+
   }
 
 
