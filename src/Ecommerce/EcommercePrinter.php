@@ -6,6 +6,13 @@ class EcommercePrinter {
 
   static public function printShortShoppingCart($shoppingCart,$shoppingCartTotal) {
     $printer = new CartTemplatePrinter($shoppingCart,$shoppingCartTotal);
+
+    /*
+    $printer->setParams([
+      'cartLines' => $shoppingCart,
+      'cartTotalAmount' => $shoppingCartTotal
+    ]);
+    */
     return $printer->render();
   }
 
@@ -13,6 +20,12 @@ class EcommercePrinter {
 
     //Create the printer and render
     $printer = new CartTablePrinter($shoppingCart);
+    /*
+    $printer->setParams([
+      'cartLines' => $shoppingCart,
+      'cartTotalAmount' => $shoppingCartTotal
+    ]);
+    */
     return $printer->render();
   }
 

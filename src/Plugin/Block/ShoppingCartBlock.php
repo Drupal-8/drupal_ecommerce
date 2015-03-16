@@ -29,8 +29,9 @@ class ShoppingCartBlock extends BlockBase {
     $shoppingCartLines = $ecommerceMannager->getCartItems();
     $shoppingCartTotal = $ecommerceMannager->getCartTotalAmunt();
 
-    $printer = new EcommercePrinter();
-    return $printer->printShortShoppingCart($shoppingCartLines, $shoppingCartTotal);
+    //$printer = new EcommercePrinter();
+    //return $printer->printShortShoppingCart($shoppingCartLines, $shoppingCartTotal);
+    return "Hola";
   }
 
 }

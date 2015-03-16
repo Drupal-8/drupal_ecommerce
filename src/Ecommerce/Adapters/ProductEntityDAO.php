@@ -12,7 +12,7 @@ namespace Drupal\ecommerce\Ecommerce\Adapters;
 class ProductEntityDAO {
   private $entityStorage;
 
-  const ENTITY_NAME = "product_entity";
+  const ENTITY_NAME = "node";
 
   public function __construct($entityManager) {
     $this->entityStorage = $entityManager->getStorage(self::ENTITY_NAME);

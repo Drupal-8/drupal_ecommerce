@@ -1,6 +1,0 @@
-product_entity.add:
-  route_name: product_entity.add
-  title: 'Add ProductEntity'
-  appears_on:
-    - product_entity.list
-    - product_entity.view
