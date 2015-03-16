@@ -11,8 +11,11 @@ use Drupal\ecommerce\Ecommerce\EcommercePrinter;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Routing\UrlGeneratorTrait;
 
 class EcommerceController extends ControllerBase {
+
+  use UrlGeneratorTrait;
 
   public function __construct($ecommerceManager) {
     $this->ecommerceManager = $ecommerceManager;
@@ -22,7 +25,6 @@ class EcommerceController extends ControllerBase {
     try {
 
       $this->ecommerceManager->addProductToCart($productId);
-
       return $this->redirectToPreviosPage();
 
     } catch (\Exception $e) {
@@ -32,12 +34,9 @@ class EcommerceController extends ControllerBase {
 
   public function showCart() {
     try {
-
       $shoppingCart =  $this->ecommerceManager->getCartItems();
-
       $printer = new EcommercePrinter();
       return $printer->printShoppingCart($shoppingCart);
-
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
@@ -45,29 +44,19 @@ class EcommerceController extends ControllerBase {
 
   public function removeFromCart($productId) {
     try {
-
       $this->ecommerceManager->removeProductFromCart($productId);
-
       return $this->redirectToPreviosPage();
-
     } catch (\Exception $e) {
-      drupal_set_message ($e->getMessage (), 'error');
+      drupal_set_message($e->getMessage (), 'error');
     }
   }
 
-
-
-  private function redirectToPreviosPage() {
+  protected function redirectToPreviosPage() {
     //Redirect to previous page
-    /*
     $request = \Drupal::request();
     $referer = $request->headers->get('referer');
-    */
-    return RedirectResponse::create('');
-
+    return RedirectResponse::create($this->url('<front>'));
   }
-
-
 
   /**
    * {@inheritdoc}
