@@ -24,14 +24,7 @@ use Drupal\ecommerce\Ecommerce\EcommercePrinter;
 class ShoppingCartBlock extends BlockBase {
 
   public function build() {
-
-    $ecommerceMannager = \Drupal::service('ecommerce.manager');
-    $shoppingCartLines = $ecommerceMannager->getCartItems();
-    $shoppingCartTotal = $ecommerceMannager->getCartTotalAmunt();
-
-    $printer = new EcommercePrinter();
-    return $printer->printShortShoppingCart($shoppingCartLines, $shoppingCartTotal);
-
+    $printer = \Drupal::service('ecommerce.printer');
+    return $printer->render('short');
   }
-
 }

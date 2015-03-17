@@ -11,3 +11,6 @@ services:
   ecommerce.manager:
     class: malotor\shoppingcart\Application\Ecommerce
     arguments: ['@ecommerce.product_repository','@ecommerce.cartline_repository']
+  ecommerce.printer:
+      class: Drupal\ecommerce\Ecommerce\EcommercePrinter
+      arguments: ['@ecommerce.manager']

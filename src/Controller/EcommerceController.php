@@ -15,7 +15,7 @@ use Drupal\Core\Routing\UrlGeneratorTrait;
 
 class EcommerceController extends ControllerBase {
 
-  use UrlGeneratorTrait;
+  //use UrlGeneratorTrait;
 
   public function __construct($ecommerceManager) {
     $this->ecommerceManager = $ecommerceManager;
@@ -33,9 +33,12 @@ class EcommerceController extends ControllerBase {
 
   public function showCart() {
     try {
-      $shoppingCart =  $this->ecommerceManager->getCartItems();
-      $printer = new EcommercePrinter();
-      return $printer->printShoppingCart($shoppingCart);
+
+      $printer = \Drupal::service('ecommerce.printer');
+      //$cart = $ecommerceMannager->getCart();
+      //$printer = EcommercePrinter::create($cart,'short');
+      return $printer->render('full');
+
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }

@@ -36,6 +36,7 @@ class CartTablePrinter extends TablePrinter {
   public function prepareRows() {
     $productDao = \Drupal::service('ecommerce.product_entity_dao');
     $rows = [];
+
     foreach ($this->shoppingCart as $key => $cartline) {
       $productEntity = $productDao->get($cartline->getItem()->getId());
 

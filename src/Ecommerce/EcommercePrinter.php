@@ -4,29 +4,29 @@ namespace Drupal\ecommerce\Ecommerce;
 
 class EcommercePrinter {
 
-  static public function printShortShoppingCart($shoppingCart,$shoppingCartTotal) {
-    $printer = new CartTemplatePrinter($shoppingCart,$shoppingCartTotal);
+  public function __construct($ecommerceManager) {
+    $this->ecommerceManager = $ecommerceManager;
+  }
 
-    /*
-    $printer->setParams([
-      'cartLines' => $shoppingCart,
-      'cartTotalAmount' => $shoppingCartTotal
-    ]);
-    */
+  public function render($display) {
+    switch($display) {
+      case 'short':
+        $printer = new CartTemplatePrinter($this->ecommerceManager->getCartItems(), $this->ecommerceManager->getCartTotalAmunt());
+        break;
+
+      case 'full':
+        $printer =  new CartTablePrinter($this->ecommerceManager->getCartItems());
+        break;
+    }
     return $printer->render();
   }
 
-  public function printShoppingCart($shoppingCart) {
-
-    //Create the printer and render
-    $printer = new CartTablePrinter($shoppingCart);
-    /*
-    $printer->setParams([
-      'cartLines' => $shoppingCart,
-      'cartTotalAmount' => $shoppingCartTotal
-    ]);
-    */
-    return $printer->render();
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('ecommerce.manager')
+    );
   }
-
 }
