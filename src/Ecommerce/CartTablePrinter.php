@@ -35,17 +35,15 @@ class CartTablePrinter extends TablePrinter {
 
   public function prepareRows() {
     $productDao = \Drupal::service('ecommerce.product_entity_dao');
-
     $rows = [];
-    //$chartIterator = $this->shoppingCart->getIterator();
     foreach ($this->shoppingCart as $key => $cartline) {
-      $productEntitys = $productDao->getByProperty('reference', $cartline->getItemReference());
-      $productEntity = array_shift(array_values($productEntitys));
+      $productEntity = $productDao->get($cartline->getItem()->getId());
+
       $rows[] = array(
         $cartline->getQuantity(),
         $cartline->getItem()->getName(),
         $cartline->getItem()->getPrice(),
-        EcommerceTools::formatPrice($cartline->lineCartAmount()),
+        EcommerceTools::formatPrice($cartline->getAmount()),
         $this->l($this->t('Remove from cart') , Url::fromRoute('ecommerce.removefromcart', array('productId' => $productEntity->id()))),
       );
     }

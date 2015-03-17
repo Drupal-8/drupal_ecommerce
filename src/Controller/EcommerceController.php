@@ -23,10 +23,9 @@ class EcommerceController extends ControllerBase {
 
   public function addToCart($productId) {
     try {
-
       $this->ecommerceManager->addProductToCart($productId);
+      drupal_set_message ("Product added to cart", 'status');
       return $this->redirectToPreviosPage();
-
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
@@ -45,6 +44,7 @@ class EcommerceController extends ControllerBase {
   public function removeFromCart($productId) {
     try {
       $this->ecommerceManager->removeProductFromCart($productId);
+      drupal_set_message ("Product removed from cart", 'status');
       return $this->redirectToPreviosPage();
     } catch (\Exception $e) {
       drupal_set_message($e->getMessage (), 'error');
@@ -52,10 +52,9 @@ class EcommerceController extends ControllerBase {
   }
 
   protected function redirectToPreviosPage() {
-    //Redirect to previous page
     $request = \Drupal::request();
     $referer = $request->headers->get('referer');
-    return RedirectResponse::create($this->url('<front>'));
+    return RedirectResponse::create($referer);
   }
 
   /**

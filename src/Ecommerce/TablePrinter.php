@@ -16,11 +16,8 @@ abstract class TablePrinter {
   abstract protected function prepareHeader();
 
   public function render($params = []) {
-
     $this->prepareHeader();
-
     $this->prepareRows();
-
     return array(
       '#theme' => 'table',
       '#header' => $this->header,
