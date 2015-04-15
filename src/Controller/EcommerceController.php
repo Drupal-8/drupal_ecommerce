@@ -17,6 +17,8 @@ class EcommerceController extends ControllerBase {
 
   //use UrlGeneratorTrait;
 
+  const HOME_URL = '/';
+
   public function __construct($ecommerceManager) {
     $this->ecommerceManager = $ecommerceManager;
   }
@@ -33,12 +35,8 @@ class EcommerceController extends ControllerBase {
 
   public function showCart() {
     try {
-
       $printer = \Drupal::service('ecommerce.printer');
-      //$cart = $ecommerceMannager->getCart();
-      //$printer = EcommercePrinter::create($cart,'short');
       return $printer->render('full');
-
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
@@ -57,6 +55,9 @@ class EcommerceController extends ControllerBase {
   protected function redirectToPreviosPage() {
     $request = \Drupal::request();
     $referer = $request->headers->get('referer');
+
+    if (!$referer) $referer = self::HOME_URL;
+
     return RedirectResponse::create($referer);
   }
 
