@@ -15,19 +15,18 @@ use Drupal\Core\Routing\UrlGeneratorTrait;
 
 class EcommerceController extends ControllerBase {
 
-  //use UrlGeneratorTrait;
 
-  const HOME_URL = '/';
-
-  public function __construct($ecommerceManager) {
+  public function __construct($ecommerceManager, $router, $printer) {
     $this->ecommerceManager = $ecommerceManager;
+    $this->router = $router;
+    $this->printer = $printer;
   }
 
   public function addToCart($productId) {
     try {
       $this->ecommerceManager->addProductToCart($productId);
       drupal_set_message ("Product added to cart", 'status');
-      return $this->redirectToPreviosPage();
+      return $this->router->redirectToPreviosPage();
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
@@ -35,8 +34,7 @@ class EcommerceController extends ControllerBase {
 
   public function showCart() {
     try {
-      $printer = \Drupal::service('ecommerce.printer');
-      return $printer->render('full');
+      return $this->printer->render('full');
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }
@@ -46,27 +44,21 @@ class EcommerceController extends ControllerBase {
     try {
       $this->ecommerceManager->removeProductFromCart($productId);
       drupal_set_message ("Product removed from cart", 'status');
-      return $this->redirectToPreviosPage();
+      return $this->router->redirectToPreviosPage();
     } catch (\Exception $e) {
       drupal_set_message($e->getMessage (), 'error');
     }
   }
 
-  protected function redirectToPreviosPage() {
-    $request = \Drupal::request();
-    $referer = $request->headers->get('referer');
-
-    if (!$referer) $referer = self::HOME_URL;
-
-    return RedirectResponse::create($referer);
-  }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('ecommerce.manager')
+      $container->get('ecommerce.manager'),
+      $container->get('ecommerce.router'),
+      $container->get('ecommerce.printer')
     );
   }
 

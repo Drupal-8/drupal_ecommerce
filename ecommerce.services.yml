@@ -1,19 +1,24 @@
 services:
+  #Repositories
   ecommerce.product_repository:
     class: Drupal\ecommerce\Ecommerce\Adapters\ProductRepository
     arguments: ['@ecommerce.product_entity_dao']
   ecommerce.product_entity_dao:
-      class: Drupal\ecommerce\Ecommerce\Adapters\ProductEntityDAO
-      arguments: ['@entity.manager']
-  #ecommerce.cartline_repository:
-  #    class: Drupal\ecommerce\Ecommerce\Adapters\SessionLineCartRepository
-  #    arguments: ['@current_user','@ecommerce.product_repository']
+    class: Drupal\ecommerce\Ecommerce\Adapters\ProductEntityDAO
+    arguments: ['@entity.manager']
+
   ecommerce.cartline_repository:
-        class: Drupal\ecommerce\Ecommerce\Adapters\DBLineCartRepository
-        arguments: ['@current_user','@ecommerce.product_repository']
+    class: Drupal\ecommerce\Ecommerce\Adapters\DBLineCartRepository
+    arguments: ['@current_user','@ecommerce.product_repository']
+
+  #Ecommerce application layer
   ecommerce.manager:
     class: malotor\shoppingcart\Application\Ecommerce
     arguments: ['@ecommerce.product_repository','@ecommerce.cartline_repository']
+
+  #Ecommerce services
   ecommerce.printer:
-      class: Drupal\ecommerce\Ecommerce\EcommercePrinter
-      arguments: ['@ecommerce.manager']
+    class: Drupal\ecommerce\Ecommerce\EcommercePrinter
+    arguments: ['@ecommerce.manager']
+  ecommerce.router:
+    class: Drupal\ecommerce\Ecommerce\Router
