@@ -6,7 +6,7 @@
  * Time: 23:23
  */
 
-namespace Drupal\ecommerce\Ecommerce\Components\Printer;
+namespace Drupal\ecommerce\Components\Printer;
 
 
 class FactoryPrinter {

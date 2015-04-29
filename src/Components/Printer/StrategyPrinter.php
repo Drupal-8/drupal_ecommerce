@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ecommerce\Ecommerce\Components\Printer;
+namespace Drupal\ecommerce\Components\Printer;
 
 abstract class StrategyPrinter {
 

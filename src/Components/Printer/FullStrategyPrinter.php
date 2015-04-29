@@ -6,12 +6,13 @@
  * Time: 23:21
  */
 
-namespace Drupal\ecommerce\Ecommerce\Components\Printer;
+namespace Drupal\ecommerce\Components\Printer;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Routing\UrlGeneratorTrait;
 use Drupal\Core\Url;
-use Drupal\ecommerce\Ecommerce\EcommerceTools;
+
+use Drupal\ecommerce\Components\EcommerceTools;
 
 class FullStrategyPrinter {
   use StringTranslationTrait;

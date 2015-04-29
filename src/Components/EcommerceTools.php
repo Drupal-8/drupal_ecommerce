@@ -6,7 +6,7 @@
  * Time: 20:54
  */
 
-namespace Drupal\ecommerce\Ecommerce\Components;
+namespace Drupal\ecommerce\Components;
 
 
 class EcommerceTools {

@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Services;
 
-use Drupal\ecommerce\Ecommerce\Components\Printer\FactoryPrinter;
+use Drupal\ecommerce\Components\Printer\FactoryPrinter;
 
 class PrinterService {
 

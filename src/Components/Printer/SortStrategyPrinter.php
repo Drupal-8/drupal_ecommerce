@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\ecommerce\Ecommerce\Components\Printer;
+namespace Drupal\ecommerce\Components\Printer;
 
-use Drupal\ecommerce\Ecommerce\Components\EcommerceTools;
+use Drupal\ecommerce\Components\EcommerceTools;
 
 class SortStrategyPrinter extends  StrategyPrinter {
 
