@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: manel
- * Date: 24/04/15
- * Time: 19:51
- */
 
-namespace Drupal\ecommerce\Ecommerce;
+namespace Drupal\ecommerce\Services;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class Router {
+class RouterService {
 
   //use UrlGeneratorTrait;
 
