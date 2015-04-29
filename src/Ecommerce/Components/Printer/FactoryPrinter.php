@@ -11,29 +11,21 @@ namespace Drupal\ecommerce\Ecommerce\Components\Printer;
 
 class FactoryPrinter {
 
-  static function create($display) {
+  static public function create($display) {
+
     switch($display) {
-      /*
-      case 'sort':
-        $strategyPrinter = new SortStrategyPrinter();
-        return new Printer($strategyPrinter);
+      case 'short':
+        $printer = new SortStrategyPrinter();
         break;
-
       case 'full':
-        $strategyPrinter = new FullStrategyPrinter();
-        return new Printer($strategyPrinter);
+        $printer = new FullStrategyPrinter();
         break;
-      */
-
-      case 'sort':
-        return new SortStrategyPrinter();
-        break;
-
-      case 'full':
-        return new FullStrategyPrinter();
+      default:
+        throw new \Exception("This display doesn't exists!");
         break;
 
     }
 
+    return $printer;
   }
 } 

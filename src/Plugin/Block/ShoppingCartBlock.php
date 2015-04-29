@@ -25,6 +25,7 @@ class ShoppingCartBlock extends BlockBase {
 
   public function build() {
     $printer = \Drupal::service('ecommerce.printer');
-    return $printer->render('short');
+    $printer->setDisplay('short');
+    return $printer->render();
   }
 }

@@ -34,7 +34,8 @@ class EcommerceController extends ControllerBase {
 
   public function showCart() {
     try {
-      return $this->printer->render('full');
+      $this->printer->setDisplay('full');
+      return $this->printer->render();
     } catch (\Exception $e) {
       drupal_set_message ($e->getMessage (), 'error');
     }

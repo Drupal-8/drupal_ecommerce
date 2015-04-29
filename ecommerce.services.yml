@@ -18,7 +18,7 @@ services:
 
   #Ecommerce services
   ecommerce.printer:
-    class: Drupal\ecommerce\Services\Printer
+    class: Drupal\ecommerce\Services\PrinterService
     arguments: ['@ecommerce.manager']
   ecommerce.router:
     class: Drupal\ecommerce\Ecommerce\Router

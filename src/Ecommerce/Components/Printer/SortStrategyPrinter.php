@@ -6,37 +6,28 @@ use Drupal\ecommerce\Ecommerce\EcommerceTools;
 
 class SortStrategyPrinter extends  StrategyPrinter {
 
-  public function render($cartLines, $shoppingCartTotal) {
+  public function render($cartLines,$shoppingCartTotal) {
 
-    $this->header = array(
-      $this->t('Amount'),
-      $this->t('Product'),
-      $this->t('Price'),
-      $this->t('Total'),
-      $this->t('Options'),
+    $templatePath = EcommerceTools::getBasePath() . '/templates/shoppingCart.html.twig';
+
+    $twig = \Drupal::service('twig');
+
+    $items = [];
+    //$chartIterator = $this->shoppingCart->getIterator();
+    foreach ($cartLines as $key => $cartline) {
+      $items[] = $cartline->getQuantity() . ' x ' . $cartline->getItem()->getName();
+    }
+
+    $params = array(
+      'items' => $items,
+      'total' => EcommerceTools::formatPrice($shoppingCartTotal),
     );
 
-    $productDao = \Drupal::service('ecommerce.product_entity_dao');
-    $rows = [];
+    $template = $twig->loadTemplate($templatePath);
 
-    foreach ($cartLines as $key => $cartline) {
-      $productEntity = $productDao->get($cartline->getItem()->getId());
-
-      $rows[] = array(
-        $cartline->getQuantity(),
-        $cartline->getItem()->getName(),
-        $cartline->getItem()->getPrice(),
-        EcommerceTools::formatPrice($cartline->getAmount()),
-        $this->l($this->t('Remove from cart') , Url::fromRoute('ecommerce.removefromcart', array('productId' => $productEntity->id()))),
-      );
-    }
-    $this->rows = $rows;
-
-    return array(
-      '#theme' => 'table',
-      '#header' => $this->header,
-      '#rows' => $this->rows,
-      '#attributes' => array('class' => array('table-class'))
+    return array (
+      '#markup' => $template->render($params),
     );
   }
+
 } 

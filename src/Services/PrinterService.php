@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\ecommerce\Controller;
+namespace Drupal\ecommerce\Services;
 
-use Drupal\ecommerce\Ecommerce\Components\Printer;
+use Drupal\ecommerce\Ecommerce\Components\Printer\FactoryPrinter;
 
 class PrinterService {
 
@@ -11,10 +11,12 @@ class PrinterService {
 
   public function __construct($ecommerceManager) {
     $this->ecommerceManager = $ecommerceManager;
+    //Default display;
+    $this->setDisplay('full');
   }
 
-  public function setPrinter($display) {
-    $this->printer = Printer\FactoryPrinter::create($display);
+  public function setDisplay($display) {
+    $this->printer = FactoryPrinter::create($display);
   }
 
   public function render() {
