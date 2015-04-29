@@ -6,7 +6,7 @@
  * Time: 11:27
  */
 
-namespace Drupal\ecommerce\Ecommerce\Adapters;
+namespace Drupal\ecommerce\Adapters;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 

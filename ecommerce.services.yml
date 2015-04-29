@@ -1,14 +1,14 @@
 services:
   #Repositories
   ecommerce.product_repository:
-    class: Drupal\ecommerce\Ecommerce\Adapters\ProductRepository
+    class: Drupal\ecommerce\Adapters\ProductRepository
     arguments: ['@ecommerce.product_entity_dao']
   ecommerce.product_entity_dao:
-    class: Drupal\ecommerce\Ecommerce\Adapters\ProductEntityDAO
+    class: Drupal\ecommerce\Adapters\ProductEntityDAO
     arguments: ['@entity.manager']
 
   ecommerce.cartline_repository:
-    class: Drupal\ecommerce\Ecommerce\Adapters\DBLineCartRepository
+    class: Drupal\ecommerce\Adapters\DBLineCartRepository
     arguments: ['@current_user','@ecommerce.product_repository']
 
   #Ecommerce application layer

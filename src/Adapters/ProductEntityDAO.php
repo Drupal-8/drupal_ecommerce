@@ -6,7 +6,7 @@
  * Time: 20:34
  */
 
-namespace Drupal\ecommerce\Ecommerce\Adapters;
+namespace Drupal\ecommerce\Adapters;
 
 
 class ProductEntityDAO {

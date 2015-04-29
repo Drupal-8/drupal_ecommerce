@@ -6,7 +6,7 @@
  * Time: 11:27
  */
 
-namespace Drupal\ecommerce\Ecommerce\Adapters;
+namespace Drupal\ecommerce\Adapters;
 
 use malotor\shoppingcart\Application\CartLineFactory;
 use malotor\shoppingcart\Application\CartLineRepositoryInterface;

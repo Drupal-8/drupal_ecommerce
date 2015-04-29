@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ecommerce\Ecommerce\Adapters;
+namespace Drupal\ecommerce\Adapters;
 
 use malotor\shoppingcart\Application\ItemRepositoryInterface;
 use malotor\shoppingcart\Application\ItemFactory;
