@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Ecommerce\Components\Printer;
 
-use Drupal\ecommerce\Ecommerce\EcommerceTools;
+use Drupal\ecommerce\Ecommerce\Components\EcommerceTools;
 
 class SortStrategyPrinter extends  StrategyPrinter {
 

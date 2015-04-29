@@ -7,7 +7,6 @@
  */
 
 namespace Drupal\ecommerce\Ecommerce\Components\Printer;
-
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Routing\UrlGeneratorTrait;
