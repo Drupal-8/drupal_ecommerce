@@ -1,0 +1,21 @@
+uuid: cca6e70d-cfec-473a-b319-251385711065
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_reference
+    - node.type.product
+id: node.product.field_reference
+field_name: field_reference
+entity_type: node
+bundle: product
+label: Reference
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: ''
+default_value_callback: ''
+settings: {  }
+field_type: string

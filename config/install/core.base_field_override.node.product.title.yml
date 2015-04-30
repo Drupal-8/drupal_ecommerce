@@ -1,0 +1,20 @@
+uuid: 67259ff8-bf88-41e2-8436-5482c8aaf520
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.product
+id: node.product.title
+field_name: title
+entity_type: node
+bundle: product
+label: Name
+description: 'The title of this node, always treated as non-markup plain text.'
+required: true
+translatable: true
+default_value:
+  -
+    value: ''
+default_value_callback: ''
+settings: {  }
+field_type: string
