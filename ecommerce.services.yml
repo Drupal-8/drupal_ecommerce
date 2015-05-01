@@ -2,7 +2,7 @@ services:
   #Repositories
   ecommerce.product_repository:
     class: Drupal\ecommerce\Adapters\ProductRepository
-    arguments: ['@ecommerce.product_entity_dao']
+    arguments: ['@entity.manager']
   ecommerce.product_entity_dao:
     class: Drupal\ecommerce\Adapters\ProductEntityDAO
     arguments: ['@entity.manager']

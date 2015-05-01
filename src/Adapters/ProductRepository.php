@@ -7,27 +7,34 @@ use malotor\shoppingcart\Application\ItemFactory;
 
 class ProductRepository implements ItemRepositoryInterface {
 
-  private $productEntityDAO;
+  private $entityStorage;
 
-  public function __construct($productEntityDAO) {
-    $this->productEntityDAO = $productEntityDAO;
+  const ENTITY_NAME = "node";
+
+  public function __construct($entityManager) {
+    $this->entityStorage = $entityManager->getStorage(self::ENTITY_NAME);
   }
 
   public function get($id) {
 
-    $productEntity = $this->productEntityDAO->get($id);
+    $nodeProduct = $this->entityStorage->load($id);
 
-    $product = ItemFactory::create(
-      $productEntity->id(),
-      $productEntity->title->value,
-      $productEntity->field_reference->value,
-      $productEntity->body->value,
-      $productEntity->field_price->value
-    );
+    $product = $this->createItem($nodeProduct);
 
     return $product;
   }
 
+  protected function createItem($nodeProduct) {
+    return ItemFactory::create(
+      $nodeProduct->id(),
+      $nodeProduct->title->value,
+      $nodeProduct->field_reference->value,
+      $nodeProduct->body->value,
+      $nodeProduct->field_price->value
+    );
+  }
+
+  /*
   protected function getProductByProperty($propertyName, $propertyValue) {
     $productEntity = $this->productEntityDAO->getByProperty($propertyName, $propertyValue);
     $productEntity = array_shift(array_values($productEntity));
@@ -47,5 +54,5 @@ class ProductRepository implements ItemRepositoryInterface {
 
   public function save($product) {
   }
-
+  */
 }
