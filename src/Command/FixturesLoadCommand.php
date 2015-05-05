@@ -37,8 +37,21 @@ class FixturesLoadCommand extends ContainerAwareCommand {
 
     $file = "./fixtures/node.product.csv";
 
+    $entityManager = $this->getContainer()->get('entity.manager');
+    //$entityManager->getStorage("node");
 
-    /*
+    $node = $entityManager->getStorage('node')->create(
+      array(
+        'type' => 'product',
+        'title' => $node->title,
+        'price' => '10.0',
+        'reference' => 'pr1',
+        'body'
+      )
+    );
+
+    $node->save();
+
     $name = $input->getArgument('name');
     if ($name) {
       $text = 'Hello ' . $name;
@@ -59,7 +72,7 @@ class FixturesLoadCommand extends ContainerAwareCommand {
     }
 
     $output->writeln($text);
-    */
+
   }
 
 }
