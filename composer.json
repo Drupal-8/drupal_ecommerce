@@ -1,0 +1,14 @@
+{
+  "name": "malotor/drupal8_shoppingcart",
+  "description": "Example module",
+  "type": "drupal-module",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url":  "https://github.com/malotor/basket.git"
+    }
+  ],
+  "require": {
+    "malotor/shoppingcart": "dev-master"
+  }
+}
