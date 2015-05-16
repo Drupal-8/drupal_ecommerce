@@ -24,7 +24,7 @@ class EcommerceController extends ControllerBase {
 
   public function addToCart($productId) {
     try {
-      $this->ecommerceManager->addProductToCart($productId);
+      $this->ecommerceManager->addProductToBasket($productId, null);
       drupal_set_message ("Product added to cart", 'status');
       return $this->router->redirectToPreviosPage();
     } catch (\Exception $e) {
@@ -43,7 +43,7 @@ class EcommerceController extends ControllerBase {
 
   public function removeFromCart($productId) {
     try {
-      $this->ecommerceManager->removeProductFromCart($productId);
+      $this->ecommerceManager->removeProductFromBasket($productId, null);
       drupal_set_message ("Product removed from cart", 'status');
       return $this->router->redirectToPreviosPage();
     } catch (\Exception $e) {

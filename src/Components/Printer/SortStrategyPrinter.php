@@ -6,16 +6,23 @@ use Drupal\ecommerce\Components\EcommerceTools;
 
 class SortStrategyPrinter extends  StrategyPrinter {
 
-  public function render($cartLines,$shoppingCartTotal) {
+  public function render($products,$shoppingCartTotal) {
+
+    $productDao = \Drupal::service('ecommerce.product_entity_dao');
 
     $templatePath = EcommerceTools::getBasePath() . '/templates/shoppingCart.html.twig';
 
     $twig = \Drupal::service('twig');
 
     $items = [];
-    //$chartIterator = $this->shoppingCart->getIterator();
-    foreach ($cartLines as $key => $cartline) {
-      $items[] = $cartline->getQuantity() . ' x ' . $cartline->getItem()->getName();
+    //@todo We need a product name
+    foreach ($products as $product) {
+
+      $productEntity = $productDao->get($product->getId());
+      
+      //var_dump($productEntity);
+
+      $items[] = $product->getQuantity() . ' x ' . $productEntity->title->value;
     }
 
     $params = array(

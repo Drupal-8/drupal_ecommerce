@@ -19,10 +19,10 @@ class FullStrategyPrinter {
   use LinkGeneratorTrait;
   use UrlGeneratorTrait;
 
-  public function render($cartLines, $shoppingCartTotal) {
+  public function render($products, $shoppingCartTotal) {
 
     $this->header = array(
-      $this->t('Amount'),
+      $this->t('Quantity'),
       $this->t('Product'),
       $this->t('Price'),
       $this->t('Total'),
@@ -32,14 +32,13 @@ class FullStrategyPrinter {
     $productDao = \Drupal::service('ecommerce.product_entity_dao');
     $rows = [];
 
-    foreach ($cartLines as $key => $cartline) {
-      $productEntity = $productDao->get($cartline->getItem()->getId());
-
+    foreach ($products as $key => $product) {
+      $productEntity = $productDao->get($product->getId());
       $rows[] = array(
-        $cartline->getQuantity(),
-        $cartline->getItem()->getName(),
-        $cartline->getItem()->getPrice(),
-        EcommerceTools::formatPrice($cartline->getAmount()),
+        $product->getQuantity(),
+        $productEntity->title->value,
+        $productEntity->field_price->value,
+        EcommerceTools::formatPrice($product->getAmount()),
         $this->l($this->t('Remove from cart') , Url::fromRoute('ecommerce.removefromcart', array('productId' => $productEntity->id()))),
       );
     }

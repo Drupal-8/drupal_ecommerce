@@ -11,7 +11,6 @@ class PrinterService {
 
   public function __construct($ecommerceManager) {
     $this->ecommerceManager = $ecommerceManager;
-    //Default display;
     $this->setDisplay('full');
   }
 
@@ -21,8 +20,8 @@ class PrinterService {
 
   public function render() {
     return $this->printer->render(
-      $this->ecommerceManager->getCartItems(),
-      $this->ecommerceManager->getCartTotalAmunt()
+      $this->ecommerceManager->getProductsFromBasket(),
+      $this->ecommerceManager->getBasketTotalAmount()
     );
   }
 

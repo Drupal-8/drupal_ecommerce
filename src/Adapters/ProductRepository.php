@@ -2,10 +2,10 @@
 
 namespace Drupal\ecommerce\Adapters;
 
-use malotor\shoppingcart\Application\ItemRepositoryInterface;
-use malotor\shoppingcart\Application\ItemFactory;
+use malotor\shoppingcart\Application\Repository\ProductRepository as ProductRepositoryInterface;
+use malotor\shoppingcart\Application\Factory\ProductFactory;
 
-class ProductRepository implements ItemRepositoryInterface {
+class ProductRepository implements ProductRepositoryInterface {
 
   private $entityStorage;
 
@@ -16,43 +16,12 @@ class ProductRepository implements ItemRepositoryInterface {
   }
 
   public function get($id) {
-
     $nodeProduct = $this->entityStorage->load($id);
-
-    $product = $this->createItem($nodeProduct);
-
-    return $product;
+    
+    $productStdObj = new \stdClass();
+    $productStdObj->id = $nodeProduct->id();
+    $productStdObj->price = $nodeProduct->field_price->value;
+    return ProductFactory::create($productStdObj);
   }
 
-  protected function createItem($nodeProduct) {
-    return ItemFactory::create(
-      $nodeProduct->id(),
-      $nodeProduct->title->value,
-      $nodeProduct->field_reference->value,
-      $nodeProduct->body->value,
-      $nodeProduct->field_price->value
-    );
-  }
-
-  /*
-  protected function getProductByProperty($propertyName, $propertyValue) {
-    $productEntity = $this->productEntityDAO->getByProperty($propertyName, $propertyValue);
-    $productEntity = array_shift(array_values($productEntity));
-    $product = ItemFactory::create(
-      $productEntity->id(),
-      $productEntity->title->value,
-      $productEntity->field_reference->value,
-      $productEntity->body->value,
-      $productEntity->field_price->value
-    );
-    return $product;
-  }
-
-  public function getProductByReference($reference) {
-    return $this->getProductByProperty('reference', $reference);
-  }
-
-  public function save($product) {
-  }
-  */
 }
