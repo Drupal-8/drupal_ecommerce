@@ -2,7 +2,7 @@
 
 namespace Drupal\ecommerce\Adapters;
 
-class ProductEntityDAO {
+class ProductEntityRepository {
   private $entityStorage;
 
   const ENTITY_NAME = "node";

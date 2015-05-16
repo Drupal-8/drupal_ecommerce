@@ -8,20 +8,15 @@ class SortStrategyPrinter extends  StrategyPrinter {
 
   public function render($products,$shoppingCartTotal) {
 
-    $productDao = \Drupal::service('ecommerce.product_entity_dao');
+    $productDao = \Drupal::service('ecommerce.product_entity_repository');
 
     $templatePath = EcommerceTools::getBasePath() . '/templates/shoppingCart.html.twig';
 
     $twig = \Drupal::service('twig');
 
     $items = [];
-    //@todo We need a product name
     foreach ($products as $product) {
-
       $productEntity = $productDao->get($product->getId());
-      
-      //var_dump($productEntity);
-
       $items[] = $product->getQuantity() . ' x ' . $productEntity->title->value;
     }
 

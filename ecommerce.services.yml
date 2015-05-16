@@ -1,7 +1,7 @@
 services:
 
-  ecommerce.product_entity_dao:
-    class: Drupal\ecommerce\Adapters\ProductEntityDAO
+  ecommerce.product_entity_repository:
+    class: Drupal\ecommerce\Adapters\ProductEntityRepository
     arguments: ['@entity.manager']
     
   #Repositories
@@ -10,7 +10,7 @@ services:
     arguments: ['@entity.manager']
   ecommerce.basket_repository:
     class: Drupal\ecommerce\Adapters\BasketSessionRepository
-    arguments: ['@current_user','@ecommerce.product_entity_dao']
+    arguments: ['@current_user','@ecommerce.product_entity_repository']
 
   #Ecommerce application layer
   ecommerce.manager:

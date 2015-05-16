@@ -29,7 +29,7 @@ class FullStrategyPrinter {
       $this->t('Options'),
     );
 
-    $productDao = \Drupal::service('ecommerce.product_entity_dao');
+    $productDao = \Drupal::service('ecommerce.product_entity_repository');
     $rows = [];
 
     foreach ($products as $key => $product) {
