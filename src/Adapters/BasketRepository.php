@@ -7,17 +7,16 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use malotor\shoppingcart\Application\Factory\BasketFactory;
 use malotor\shoppingcart\Application\Repository\BasketRepository as BasketRepositoryInterface;
 
-use Drupal\ecommerce\Components\DataProvider\LineCartDatabaseProvider;
+//use Drupal\ecommerce\Components\DataProvider\LineCartDatabaseProvider;
 
 class BasketRepository implements BasketRepositoryInterface {
 
-  public function __construct($current_user, $productRepository) {
+  public function __construct($productRepository, $lineCartDataProvider) {
     $this->productRepository = $productRepository;
-    $this->dataProvider = new LineCartDatabaseProvider();
+    $this->dataProvider =  $lineCartDataProvider;
   }
 
   public function get($baskedId) {
-
   	
     $cartLines = $this->dataProvider->getAll();
 

@@ -3,14 +3,13 @@ services:
   ecommerce.product_entity_repository:
     class: Drupal\ecommerce\Adapters\ProductEntityRepository
     arguments: ['@entity.manager']
-    
   #Repositories
   ecommerce.product_repository:
     class: Drupal\ecommerce\Adapters\ProductRepository
     arguments: ['@entity.manager']
   ecommerce.basket_repository:
     class: Drupal\ecommerce\Adapters\BasketRepository
-    arguments: ['@current_user','@ecommerce.product_entity_repository']
+    arguments: ['@ecommerce.product_entity_repository','@ecommerce.linecart_database_provider']
 
   #Ecommerce application layer
   ecommerce.manager:
@@ -23,3 +22,9 @@ services:
     arguments: ['@ecommerce.manager']
   ecommerce.router:
     class: Drupal\ecommerce\Services\RouterService
+
+
+  #Ecommerce LineCart provider
+  ecommerce.linecart_database_provider:
+    class: Drupal\ecommerce\Components\DataProvider\LineCartDatabaseProvider
+    arguments: ['@current_user','@database']

@@ -4,10 +4,10 @@ namespace Drupal\ecommerce\Components\DataProvider;
 
 class LineCartDatabaseProvider implements LineCartProvider {
 	
-	public function __construct()
+	public function __construct($currentUser, $database)
 	{
-		$this->userId = \Drupal::service("current_user")->id();
-		$this->dbConnection = \Drupal::service("database");
+		$this->userId = $currentUser->id();
+		$this->dbConnection = $database;
 	}
 
 	function getAll() 
@@ -36,7 +36,7 @@ class LineCartDatabaseProvider implements LineCartProvider {
 		    $this->dbConnection->insert('linecart')
 		      ->fields($fields)
 		      ->execute();
-		    }
+		    
 	  	}
 	}
 
