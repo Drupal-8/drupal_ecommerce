@@ -7,27 +7,25 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use malotor\shoppingcart\Application\Factory\BasketFactory;
 use malotor\shoppingcart\Application\Repository\BasketRepository as BasketRepositoryInterface;
 
+use Drupal\ecommerce\Components\DataProvider\LineCartDatabaseProvider;
 
 class BasketRepository implements BasketRepositoryInterface {
 
-  public function __construct($current_user, $productDAO) {
-    $this->account = $current_user;
-    $this->productDAO = $productDAO;
-    $this->userId = $this->account->id();
-    $this->dbConnection = \Drupal::service("database");
+  public function __construct($current_user, $productRepository) {
+    $this->productRepository = $productRepository;
+    $this->dataProvider = new LineCartDatabaseProvider();
   }
 
   public function get($baskedId) {
 
-  	$result = $this->dbConnection->select('linecart', 'ln')
-      ->fields('ln')
-      ->condition('user_id', $this->userId,'=')
-      ->execute();
+  	
+    $cartLines = $this->dataProvider->getAll();
 
     $products = array();
-    foreach ($result as $row) {
+
+    foreach ($cartLines as $row) {
       
-      $productEntity = $this->productDAO->get($row->item_id);
+      $productEntity = $this->productRepository->get($row->item_id);
       
       $productStdObject = new \stdClass();
       $productStdObject->id = $row->item_id;
@@ -41,22 +39,7 @@ class BasketRepository implements BasketRepositoryInterface {
   }
 
   public function save($basket) {
-
-  	$this->dbConnection->delete('linecart')
-      ->condition('user_id', (int) $this->userId)
-      ->execute();
-
-    foreach ($basket->getItems() as $product) {
-    	$fields = array(
-	      'user_id' => (int) $this->userId,
-	      'item_id' => (int) $product->getId(),
-	      'quantity' => (int) $product->getQuantity(),
-	    );
-
-	    $this->dbConnection->insert('linecart')
-	      ->fields($fields)
-	      ->execute();
-	    }
-  	}
-
+    $lineCarts = $basket->getItems();
+  	$this->dataProvider->save($lineCarts);
+  }
 } 
