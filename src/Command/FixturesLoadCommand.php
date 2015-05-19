@@ -35,44 +35,53 @@ class FixturesLoadCommand extends ContainerAwareCommand {
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
 
-    $file = "./fixtures/node.product.csv";
+    $basePath = \Drupal::root() ."/". drupal_get_path('module', 'ecommerce');
+
+    $file =  $basePath . "/fixtures/node.product.csv";
+    $rows = $this->loadCSVFile($file);
 
     $entityManager = $this->getContainer()->get('entity.manager');
-    //$entityManager->getStorage("node");
 
-    $node = $entityManager->getStorage('node')->create(
-      array(
-        'type' => 'product',
-        'title' => $node->title,
-        'price' => '10.0',
-        'reference' => 'pr1',
-        'body'
-      )
-    );
+    
+    foreach ($rows as $data) {
+      $image = $basePath . '/fixtures/images/' . $data[3]; 
+      var_dump($image);
+      $imageName = rand() ."jpg"; 
+      file_unmanaged_copy($image, 'public://' . $imageName . '.jpg');
+      $imageEntity = entity_create('file', array(
+        'uri' => 'public://' . $imageName . '.jpg',
+      ));
+      $imageEntity->save();
+      $node = $entityManager->getStorage('node')->create(
+        array(
+          'type' => 'product',
+          'title' =>  $data[0],
+          'field_price' => (double) $data[1],
+          'field_reference' =>  $data[2],
+          'body' =>  $data[5],
+          'field_image' => $imageEntity
+        )
+      );
+      $node->save();
 
-    $node->save();
-
-    $name = $input->getArgument('name');
-    if ($name) {
-      $text = 'Hello ' . $name;
-    }
-    else {
-      $text = 'Hello';
-    }
-
-    $text = sprintf(
-      '%s, %s: %s',
-      $text,
-      'I am a new generated command for the module',
-      $this->getModule()
-    );
-
-    if ($input->getOption('yell')) {
-      $text = strtoupper($text);
+      $output->writeln("Node " . $node->id() . " created");
     }
 
-    $output->writeln($text);
+  }
 
+  protected function loadCSVFile($file) {
+    $rows = [];
+    $rowNumber = 1;
+    if (($handle = fopen($file, "r")) !== FALSE) {
+        
+        while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
+          if ($rowNumber>1) $rows[] = $data;
+          $rowNumber++;
+        }
+          
+        fclose($handle);
+    }
+    return $rows;
   }
 
 }
