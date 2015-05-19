@@ -9,7 +9,7 @@ services:
     arguments: ['@entity.manager']
   ecommerce.basket_repository:
     class: Drupal\ecommerce\Adapters\BasketRepository
-    arguments: ['@ecommerce.product_entity_repository','@ecommerce.linecart_session_provider']
+    arguments: ['@ecommerce.product_entity_repository','@ecommerce.linecart_provider']
 
   #Ecommerce application layer
   ecommerce.manager:
@@ -26,9 +26,18 @@ services:
 
   #Ecommerce LineCart provider
   ecommerce.linecart_database_provider:
-    class: Drupal\ecommerce\Components\DataProvider\LineCartDatabaseProvider
+    class: Drupal\ecommerce\Components\LineCart\LineCartDatabaseProvider
     arguments: ['@current_user','@database']
-
+    tags:
+      -  { name: ecommerce.linecart_provider }
   ecommerce.linecart_session_provider:
-    class: Drupal\ecommerce\Components\DataProvider\LineCartSessionProvider
+    class: Drupal\ecommerce\Components\LineCart\LineCartSessionProvider
+    arguments: ['@current_user']
+    tags:
+      -  { name: ecommerce.linecart_provider }
+
+  ecommerce.linecart_provider:
+    class: Drupal\ecommerce\Components\LineCart\LineCartProviderStrategy
+    factory_class: Drupal\ecommerce\Components\LineCart\LineCartProviderFactory
+    factory_method: create
     arguments: ['@current_user']

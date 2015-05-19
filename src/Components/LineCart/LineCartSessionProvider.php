@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ecommerce\Components\DataProvider;
+namespace Drupal\ecommerce\Components\LineCart;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
