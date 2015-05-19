@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: manel
- * Date: 12/01/15
- * Time: 20:34
- */
 
 namespace Drupal\ecommerce\Adapters;
 
-
-class ProductEntityDAO {
+class ProductEntityRepository {
   private $entityStorage;
 
   const ENTITY_NAME = "node";
@@ -18,7 +11,7 @@ class ProductEntityDAO {
     $this->entityStorage = $entityManager->getStorage(self::ENTITY_NAME);
   }
 
-  public function getByProperty($propertyName, $propertyValue) {
+  public function findBy($propertyName, $propertyValue) {
     $productEntities = $this->entityStorage->loadByProperties([$propertyName => $propertyValue]);
     return $productEntities;
   }

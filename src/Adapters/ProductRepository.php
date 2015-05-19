@@ -2,50 +2,26 @@
 
 namespace Drupal\ecommerce\Adapters;
 
-use malotor\shoppingcart\Application\ItemRepositoryInterface;
-use malotor\shoppingcart\Application\ItemFactory;
+use malotor\shoppingcart\Application\Repository\ProductRepository as ProductRepositoryInterface;
+use malotor\shoppingcart\Application\Factory\ProductFactory;
 
-class ProductRepository implements ItemRepositoryInterface {
+class ProductRepository implements ProductRepositoryInterface {
 
-  private $productEntityDAO;
+  private $entityStorage;
 
-  public function __construct($productEntityDAO) {
-    $this->productEntityDAO = $productEntityDAO;
+  const ENTITY_NAME = "node";
+
+  public function __construct($entityManager) {
+    $this->entityStorage = $entityManager->getStorage(self::ENTITY_NAME);
   }
 
   public function get($id) {
-
-    $productEntity = $this->productEntityDAO->get($id);
-
-    $product = ItemFactory::create(
-      $productEntity->id(),
-      $productEntity->title->value,
-      $productEntity->field_reference->value,
-      $productEntity->body->value,
-      $productEntity->field_price->value
-    );
-
-    return $product;
-  }
-
-  protected function getProductByProperty($propertyName, $propertyValue) {
-    $productEntity = $this->productEntityDAO->getByProperty($propertyName, $propertyValue);
-    $productEntity = array_shift(array_values($productEntity));
-    $product = ItemFactory::create(
-      $productEntity->id(),
-      $productEntity->title->value,
-      $productEntity->field_reference->value,
-      $productEntity->body->value,
-      $productEntity->field_price->value
-    );
-    return $product;
-  }
-
-  public function getProductByReference($reference) {
-    return $this->getProductByProperty('reference', $reference);
-  }
-
-  public function save($product) {
+    $nodeProduct = $this->entityStorage->load($id);
+    
+    $productStdObj = new \stdClass();
+    $productStdObj->id = $nodeProduct->id();
+    $productStdObj->price = $nodeProduct->field_price->value;
+    return ProductFactory::create($productStdObj);
   }
 
 }

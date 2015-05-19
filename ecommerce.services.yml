@@ -1,20 +1,20 @@
 services:
+
+  ecommerce.product_entity_repository:
+    class: Drupal\ecommerce\Adapters\ProductEntityRepository
+    arguments: ['@entity.manager']
   #Repositories
   ecommerce.product_repository:
     class: Drupal\ecommerce\Adapters\ProductRepository
-    arguments: ['@ecommerce.product_entity_dao']
-  ecommerce.product_entity_dao:
-    class: Drupal\ecommerce\Adapters\ProductEntityDAO
     arguments: ['@entity.manager']
-
-  ecommerce.cartline_repository:
-    class: Drupal\ecommerce\Adapters\DBLineCartRepository
-    arguments: ['@current_user','@ecommerce.product_repository']
+  ecommerce.basket_repository:
+    class: Drupal\ecommerce\Adapters\BasketRepository
+    arguments: ['@ecommerce.product_entity_repository','@ecommerce.linecart_provider']
 
   #Ecommerce application layer
   ecommerce.manager:
-    class: malotor\shoppingcart\Application\Ecommerce
-    arguments: ['@ecommerce.product_repository','@ecommerce.cartline_repository']
+    class: malotor\shoppingcart\Application\Service\ShoppingCartService
+    arguments: ['@ecommerce.product_repository','@ecommerce.basket_repository']
 
   #Ecommerce services
   ecommerce.printer:
@@ -22,3 +22,22 @@ services:
     arguments: ['@ecommerce.manager']
   ecommerce.router:
     class: Drupal\ecommerce\Services\RouterService
+
+
+  #Ecommerce LineCart provider
+  ecommerce.linecart_database_provider:
+    class: Drupal\ecommerce\Components\LineCart\LineCartDatabaseProvider
+    arguments: ['@current_user','@database']
+    tags:
+      -  { name: ecommerce.linecart_provider }
+  ecommerce.linecart_session_provider:
+    class: Drupal\ecommerce\Components\LineCart\LineCartSessionProvider
+    arguments: ['@current_user']
+    tags:
+      -  { name: ecommerce.linecart_provider }
+
+  ecommerce.linecart_provider:
+    class: Drupal\ecommerce\Components\LineCart\LineCartProviderStrategy
+    factory_class: Drupal\ecommerce\Components\LineCart\LineCartProviderFactory
+    factory_method: create
+    arguments: ['@current_user']
