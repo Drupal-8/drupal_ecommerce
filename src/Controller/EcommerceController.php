@@ -25,17 +25,7 @@ class EcommerceController extends ControllerBase {
       $this->shoppingCart->addProductToBasket($productId, null);
       return $this->router->redirectToPreviosPage("Product added to cart");
     } catch (\Exception $e) {
-      return $this->router->redirectWithError($e->getMessage());
-      
-    }
-  }
-
-  public function showCart() {
-    try {
-      $this->printer->setDisplay('full');
-      return $this->printer->render();
-    } catch (\Exception $e) {
-      return $this->router->redirectWithError($e->getMessage());
+      return $this->router->redirectWithError($e->getMessage()); 
     }
   }
 
@@ -48,6 +38,15 @@ class EcommerceController extends ControllerBase {
     }
   }
 
+  public function showCart() {
+    try {
+      $this->printer->setDisplay('full');
+      return $this->printer->render();
+    } catch (\Exception $e)
+      return $this->router->redirectWithError($e->getMessage());
+  }
+
+  
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('ecommerce.shoppingcart'),
