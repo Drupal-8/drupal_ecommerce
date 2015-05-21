@@ -7,7 +7,7 @@ use malotor\shoppingcart\Application\Factory\ProductFactory;
 
 class ProductRepository implements ProductRepositoryInterface {
 
-  private $entityStorage;
+  private $couponRepository;
 
   const ENTITY_NAME = "node";
 
