@@ -16,19 +16,19 @@ use Drupal\Core\Routing\UrlGeneratorTrait;
 class EcommerceController extends ControllerBase {
 
 
-  public function __construct($ecommerceManager, $router, $printer) {
-    $this->ecommerceManager = $ecommerceManager;
+  public function __construct($shoppingCart, $router, $printer) {
+    $this->shoppingCart = $shoppingCart;
     $this->router = $router;
     $this->printer = $printer;
   }
 
   public function addToCart($productId) {
     try {
-      $this->ecommerceManager->addProductToBasket($productId, null);
-      drupal_set_message ("Product added to cart", 'status');
-      return $this->router->redirectToPreviosPage();
+      $this->shoppingCart->addProductToBasket($productId, null);
+      return $this->router->redirectToPreviosPage("Product added to cart");
     } catch (\Exception $e) {
-      drupal_set_message ($e->getMessage (), 'error');
+      return $this->router->redirectWithError($e->getMessage());
+      
     }
   }
 
@@ -37,17 +37,16 @@ class EcommerceController extends ControllerBase {
       $this->printer->setDisplay('full');
       return $this->printer->render();
     } catch (\Exception $e) {
-      drupal_set_message ($e->getMessage (), 'error');
+      return $this->router->redirectWithError($e->getMessage());
     }
   }
 
   public function removeFromCart($productId) {
     try {
-      $this->ecommerceManager->removeProductFromBasket($productId, null);
-      drupal_set_message ("Product removed from cart", 'status');
-      return $this->router->redirectToPreviosPage();
+      $this->shoppingCart->removeProductFromBasket($productId, null);
+      return $this->router->redirectToPreviosPage("Product removed from cart");
     } catch (\Exception $e) {
-      drupal_set_message($e->getMessage (), 'error');
+      return $this->router->redirectWithError($e->getMessage());
     }
   }
 
@@ -57,7 +56,7 @@ class EcommerceController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('ecommerce.manager'),
+      $container->get('ecommerce.shoppingcart'),
       $container->get('ecommerce.router'),
       $container->get('ecommerce.printer')
     );

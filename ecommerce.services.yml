@@ -11,15 +11,15 @@ services:
     class: Drupal\ecommerce\Adapters\BasketRepository
     arguments: ['@ecommerce.product_entity_repository','@ecommerce.linecart_provider']
 
-  #Ecommerce application layer
-  ecommerce.manager:
+  #Application ShoppingCart Service
+  ecommerce.shoppingcart:
     class: malotor\shoppingcart\Application\Service\ShoppingCartService
     arguments: ['@ecommerce.product_repository','@ecommerce.basket_repository']
 
   #Ecommerce services
   ecommerce.printer:
     class: Drupal\ecommerce\Services\PrinterService
-    arguments: ['@ecommerce.manager']
+    arguments: ['@ecommerce.shoppingcart']
   ecommerce.router:
     class: Drupal\ecommerce\Services\RouterService
 
