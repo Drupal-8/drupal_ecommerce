@@ -42,8 +42,9 @@ class EcommerceController extends ControllerBase {
     try {
       $this->printer->setDisplay('full');
       return $this->printer->render();
-    } catch (\Exception $e)
+    } catch (\Exception $e) {
       return $this->router->redirectWithError($e->getMessage());
+    }
   }
 
   
