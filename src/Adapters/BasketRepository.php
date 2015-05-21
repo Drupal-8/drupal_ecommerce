@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use malotor\shoppingcart\Application\Factory\BasketFactory;
 use malotor\shoppingcart\Application\Repository\BasketRepository as BasketRepositoryInterface;
 
-//use Drupal\ecommerce\Components\DataProvider\LineCartDatabaseProvider;
+use malotor\shoppingcart\Domain\Entity\Basket;
 
 class BasketRepository implements BasketRepositoryInterface {
 
@@ -17,27 +17,21 @@ class BasketRepository implements BasketRepositoryInterface {
   }
 
   public function get($baskedId) {
-  	
     $cartLines = $this->dataProvider->getAll();
-
     $products = array();
-
     foreach ($cartLines as $row) {
-      
       $productEntity = $this->productRepository->get($row->item_id);
-      
       $productStdObject = new \stdClass();
       $productStdObject->id = $row->item_id;
       $productStdObject->price = $productEntity->field_price->value;
       $productStdObject->quantity = $row->quantity;
-    	
     	$products[] = $productStdObject;
     }
 
     return BasketFactory::create($products);
   }
 
-  public function save($basket) {
+  public function save(Basket $basket) {
     $lineCarts = $basket->getItems();
   	$this->dataProvider->save($lineCarts);
   }

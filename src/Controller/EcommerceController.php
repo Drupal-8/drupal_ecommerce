@@ -11,10 +11,8 @@ use Drupal\ecommerce\Ecommerce\EcommercePrinter;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Routing\UrlGeneratorTrait;
 
 class EcommerceController extends ControllerBase {
-
 
   public function __construct($shoppingCart, $router, $printer) {
     $this->shoppingCart = $shoppingCart;
@@ -50,10 +48,6 @@ class EcommerceController extends ControllerBase {
     }
   }
 
-
-  /**
-   * {@inheritdoc}
-   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('ecommerce.shoppingcart'),

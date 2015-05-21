@@ -1,7 +1,7 @@
 services:
 
   ecommerce.product_entity_repository:
-    class: Drupal\ecommerce\Adapters\ProductEntityRepository
+    class: Drupal\ecommerce\Repository\ProductEntityRepository
     arguments: ['@entity.manager']
   #Repositories
   ecommerce.product_repository:
