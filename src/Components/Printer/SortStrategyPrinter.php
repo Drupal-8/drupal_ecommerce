@@ -8,7 +8,7 @@ class SortStrategyPrinter extends  StrategyPrinter {
 
   public function render($products,$shoppingCartTotal) {
 
-    $productDao = \Drupal::service('ecommerce.product_entity_repository');
+    $couponRepository = \Drupal::service('ecommerce.coupon_repository');
 
     $templatePath = EcommerceTools::getBasePath() . '/templates/shoppingCart.html.twig';
 
@@ -16,8 +16,8 @@ class SortStrategyPrinter extends  StrategyPrinter {
 
     $items = [];
     foreach ($products as $product) {
-      $productEntity = $productDao->get($product->getId());
-      $items[] = $product->getQuantity() . ' x ' . $productEntity->title->value;
+      $coupon = $couponRepository->load($product->getId());
+      $items[] = $product->getQuantity() . ' x ' . $coupon->title->value;
     }
 
     $params = array(

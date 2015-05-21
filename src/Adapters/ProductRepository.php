@@ -11,17 +11,16 @@ class ProductRepository implements ProductRepositoryInterface {
 
   const ENTITY_NAME = "node";
 
-  public function __construct($entityManager) {
-    $this->entityStorage = $entityManager->getStorage(self::ENTITY_NAME);
+  public function __construct($couponRepository) {
+    $this->couponRepository = $couponRepository;
   }
 
   public function get($id) {
-    $nodeProduct = $this->entityStorage->load($id);
-    
-    $productStdObj = new \stdClass();
-    $productStdObj->id = $nodeProduct->id();
-    $productStdObj->price = $nodeProduct->field_price->value;
-    return ProductFactory::create($productStdObj);
+    $coupon = $this->couponRepository->load($id);
+    $object = new \stdClass();
+    $object->id = $coupon->id();
+    $object->price = $coupon->field_price->value;
+    return ProductFactory::create($object);
   }
 
 }

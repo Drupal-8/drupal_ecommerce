@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\ecommerce\Adapters;
+namespace Drupal\ecommerce\Repository;
 
-class ProductEntityRepository {
+class CouponRepository {
   private $entityStorage;
 
   const ENTITY_NAME = "node";
@@ -16,7 +16,7 @@ class ProductEntityRepository {
     return $productEntities;
   }
 
-  public function get($id) {
+  public function load($id) {
     $productEntity = $this->entityStorage->load($id);
     return $productEntity;
   }

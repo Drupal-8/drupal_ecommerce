@@ -1,15 +1,15 @@
 services:
 
-  ecommerce.product_entity_repository:
-    class: Drupal\ecommerce\Repository\ProductEntityRepository
+  ecommerce.coupon_repository:
+    class: Drupal\ecommerce\Repository\CouponRepository
     arguments: ['@entity.manager']
   #Repositories
   ecommerce.product_repository:
     class: Drupal\ecommerce\Adapters\ProductRepository
-    arguments: ['@entity.manager']
+    arguments: ['@ecommerce.coupon_repository']
   ecommerce.basket_repository:
     class: Drupal\ecommerce\Adapters\BasketRepository
-    arguments: ['@ecommerce.product_entity_repository','@ecommerce.linecart_provider']
+    arguments: ['@ecommerce.coupon_repository','@ecommerce.linecart_provider']
 
   #Application ShoppingCart Service
   ecommerce.shoppingcart:

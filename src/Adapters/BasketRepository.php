@@ -11,8 +11,8 @@ use malotor\shoppingcart\Domain\Entity\Basket;
 
 class BasketRepository implements BasketRepositoryInterface {
 
-  public function __construct($productRepository, $lineCartDataProvider) {
-    $this->productRepository = $productRepository;
+  public function __construct($couponRepository, $lineCartDataProvider) {
+    $this->couponRepository = $couponRepository;
     $this->dataProvider =  $lineCartDataProvider;
   }
 
@@ -20,12 +20,14 @@ class BasketRepository implements BasketRepositoryInterface {
     $cartLines = $this->dataProvider->getAll();
     $products = array();
     foreach ($cartLines as $row) {
-      $productEntity = $this->productRepository->get($row->item_id);
-      $productStdObject = new \stdClass();
-      $productStdObject->id = $row->item_id;
-      $productStdObject->price = $productEntity->field_price->value;
-      $productStdObject->quantity = $row->quantity;
-    	$products[] = $productStdObject;
+      $coupon = $this->couponRepository->load($row->item_id);
+      
+      $object = new \stdClass();
+      $object->id = $row->item_id;
+      $object->price = $coupon->field_price->value;
+      $object->quantity = $row->quantity;
+    	
+      $products[] = $object;
     }
 
     return BasketFactory::create($products);

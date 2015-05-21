@@ -29,17 +29,17 @@ class FullStrategyPrinter {
       $this->t('Options'),
     );
 
-    $productDao = \Drupal::service('ecommerce.product_entity_repository');
+    $couponRepository = \Drupal::service('ecommerce.coupon_repository');
     $rows = [];
 
     foreach ($products as $key => $product) {
-      $productEntity = $productDao->get($product->getId());
+      $coupon = $couponRepository->load($product->getId());
       $rows[] = array(
         $product->getQuantity(),
-        $productEntity->title->value,
-        $productEntity->field_price->value,
+        $coupon->title->value,
+        $coupon->field_price->value,
         EcommerceTools::formatPrice($product->getAmount()),
-        $this->l($this->t('Remove from cart') , Url::fromRoute('ecommerce.removefromcart', array('productId' => $productEntity->id()))),
+        $this->l($this->t('Remove from cart') , Url::fromRoute('ecommerce.removefromcart', array('productId' => $coupon->id()))),
       );
     }
     $this->rows = $rows;
